@@ -1,0 +1,110 @@
+package ru.kpfu.itis.liia_nurullina.servlet;
+
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.*;
+import java.io.File;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
+
+import org.apache.commons.fileupload.*;
+import ru.kpfu.itis.liia_nurullina.dao.ItemsDao;
+import ru.kpfu.itis.liia_nurullina.dao.impl.ItemsDaoImpl;
+import ru.kpfu.itis.liia_nurullina.model.Item;
+
+public class AddItem extends HttpServlet {
+    private Random random = new Random();
+    Item newItem = new Item();
+    private String filePath = "";
+
+    public void init() {
+
+        filePath = getServletContext().getInitParameter("file-upload");
+    }
+
+    public void doPost(HttpServletRequest request,
+                       HttpServletResponse response)
+            throws ServletException, java.io.IOException {
+
+        boolean isMultipart = ServletFileUpload.isMultipartContent(request);
+        if (!isMultipart) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+            return;
+        }
+
+        DiskFileItemFactory factory = new DiskFileItemFactory();
+        factory.setSizeThreshold(1024 * 1024);
+
+        File tempDir = (File) getServletContext().getAttribute("javax.servlet.context.tempdir");
+        factory.setRepository(tempDir);
+
+        ServletFileUpload upload = new ServletFileUpload(factory);
+
+        upload.setSizeMax(1024 * 1024 * 10);
+
+        try {
+            List items = upload.parseRequest(request);
+            Iterator iter = items.iterator();
+
+            while (iter.hasNext()) {
+                FileItem item = (FileItem) iter.next();
+
+                if (item.isFormField()) {
+                    processFormField(item);
+                } else {
+                    processUploadedFile(item);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            return;
+        }
+        ItemsDao impl = new ItemsDaoImpl();
+        impl.add(newItem);
+        request.setAttribute("Message", "Товар добавлен!");
+        getServletConfig().getServletContext().getRequestDispatcher("/addItem.ftl").forward(request, response);
+    }
+
+    private void processUploadedFile(FileItem item) throws Exception {
+        File uploadedFile;
+        int randName = random.nextInt();
+        do {
+            String path = filePath + randName + item.getName();
+            newItem.setPicture(randName + item.getName());
+            uploadedFile = new File(path);
+        } while (uploadedFile.exists());
+
+        uploadedFile.createNewFile();
+        item.write(uploadedFile);
+
+    }
+
+    private void processFormField(FileItem item) {
+        if (item.getFieldName().equals("name")) {
+            newItem.setName(item.getString());
+        }
+
+        if (item.getFieldName().equals("description")) {
+            newItem.setDescription(item.getString());
+        }
+
+        if (item.getFieldName().equals("price")) {
+            float price = Float.parseFloat(item.getString());
+
+            newItem.setPrice(price);
+        }
+        System.out.println(item.getFieldName() + "=" + item.getString());
+    }
+
+
+    public void doGet(HttpServletRequest req,
+                      HttpServletResponse resp)
+            throws ServletException, java.io.IOException {
+
+        getServletConfig().getServletContext().getRequestDispatcher("/addItem.ftl").forward(req, resp);
+    }
+}
