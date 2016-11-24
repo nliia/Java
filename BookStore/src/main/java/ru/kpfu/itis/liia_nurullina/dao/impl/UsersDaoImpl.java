@@ -29,7 +29,6 @@ public class UsersDaoImpl implements UsersDao {
             String querystring = "INSERT INTO users(login, password, email) VALUES (?, ?, ?)";
             con = getConnection();
             ptmt = con.prepareStatement(querystring);
-
             ptmt.setString(1, user.getLogin());
             ptmt.setString(2, user.getPassword());
             ptmt.setString(3, user.getEmail());
@@ -57,7 +56,6 @@ public class UsersDaoImpl implements UsersDao {
             String querystring = "UPDATE users SET login =?,password =?, email = ? WHERE user_id = ?";
             con = getConnection();
             ptmt = con.prepareStatement(querystring);
-
             ptmt.setString(1, user.getLogin());
             ptmt.setString(2, user.getPassword());
             ptmt.setString(3, user.getEmail());

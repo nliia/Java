@@ -30,8 +30,6 @@ public class AuthTest extends TestCase {
         HttpServletRequest request = mock(HttpServletRequest.class);
         HttpServletResponse response = mock(HttpServletResponse.class);
         HttpSession session = mock(HttpSession.class);
-
-
         when(request.getParameter("username")).thenReturn("admin");
         when(request.getParameter("password")).thenReturn("admin1");
         when(request.getSession()).thenReturn(session);
@@ -41,11 +39,8 @@ public class AuthTest extends TestCase {
 
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
-
         when(response.getWriter()).thenReturn(pw);
-
         new LoginServlet().doPost(request, response);
-
         verify(session).setAttribute("session_uname", "admin");
 
         String result = sw.getBuffer().toString().trim();

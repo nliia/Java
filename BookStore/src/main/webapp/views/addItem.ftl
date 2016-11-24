@@ -5,9 +5,6 @@
     <link href="css/stylesheet.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-<h3>Добавить книгу</h3>
-
-
 
 <#if Session.session_uname?? && Session.session_uname == "admin">
     <#assign user = Session.session_uname??>

@@ -1,7 +1,6 @@
 package ru.kpfu.itis.liia_nurullina.model;
 
 import java.sql.Timestamp;
-import java.text.DateFormat;
 
 public class Comment {
     private Long comment_id;
@@ -44,7 +43,6 @@ public class Comment {
     }
 
     public Timestamp getDate() {
-        DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(date);
         return date;
     }
 

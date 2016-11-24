@@ -8,7 +8,6 @@
         <description>Location to store uploaded file</description>
         <param-name>file-upload</param-name>
         <param-value>
-            <!--C:\Program Files\Java\apache-tomcat-7.0.69\webapps\ROOT\img\-->
             C:\Users\Liia\IdeaProjects\BookStore\src\main\webapp\images\
         </param-value>
     </context-param>
@@ -37,7 +36,6 @@
         <servlet-name>freemarker</servlet-name>
         <url-pattern>*.ftl</url-pattern>
     </servlet-mapping>
-
 
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
@@ -83,12 +81,6 @@
     <servlet>
         <servlet-name>AddItem</servlet-name>
         <servlet-class>ru.kpfu.itis.liia_nurullina.servlet.AddItem</servlet-class>
-        <!--<multipart-config>-->
-            <!--<location>C:\Users\Liia\Downloads\tasks\</location>-->
-            <!--<max-file-size>20848820</max-file-size>-->
-            <!--<max-request-size>418018841</max-request-size>-->
-            <!--<file-size-threshold>1048576</file-size-threshold>-->
-        <!--</multipart-config>-->
     </servlet>
     <servlet-mapping>
         <servlet-name>AddItem</servlet-name>
