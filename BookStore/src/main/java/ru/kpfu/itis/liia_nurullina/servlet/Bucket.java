@@ -47,7 +47,6 @@ public class Bucket extends HttpServlet {
         cost += item.getPrice();
         req.getSession().setAttribute("cost", cost);
         req.getSession().setAttribute("cart", cart);
-        getServletConfig().getServletContext().getRequestDispatcher("/").forward(req, resp);
-
+        resp.sendRedirect("/");
     }
 }
