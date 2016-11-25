@@ -118,7 +118,7 @@ public class UsersDaoImpl implements UsersDao {
             rs = ptmt.executeQuery();
             while (rs.next()) {
                 user = new User();
-                user.setId(rs.getLong("id"));
+                user.setId(rs.getLong("user_id"));
                 user.setLogin(rs.getString("login"));
                 user.setPassword(rs.getString("password"));
                 user.setEmail(rs.getString("email"));
