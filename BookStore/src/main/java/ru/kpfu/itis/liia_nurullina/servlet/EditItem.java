@@ -107,7 +107,6 @@ public class EditItem extends HttpServlet {
         System.out.println(item.getFieldName() + "=" + item.getString());
     }
 
-
     public void doGet(HttpServletRequest req,
                       HttpServletResponse resp)
             throws ServletException, java.io.IOException {

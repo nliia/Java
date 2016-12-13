@@ -34,7 +34,6 @@ public class ShowItem extends HttpServlet {
         req.setAttribute("item", item);
         req.setAttribute("comments", comments);
         getServletConfig().getServletContext().getRequestDispatcher("/jsp/item.jsp").forward(req, resp);
-
     }
 
     @Override

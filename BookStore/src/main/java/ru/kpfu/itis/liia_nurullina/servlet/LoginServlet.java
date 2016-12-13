@@ -45,9 +45,6 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("application/json");
-        resp.setCharacterEncoding("utf-8");
-
         String username = req.getParameter("username");
         String psw = req.getParameter("password");
         String hash = DigestUtils.md5Hex(psw + "QxLUF1bgIAdeQX");
@@ -72,8 +69,9 @@ public class LoginServlet extends HttpServlet {
 
             req.getSession().setAttribute("session_uname", username);
             req.setAttribute("username", username);
-            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/profile.ftl");
-            requestDispatcher.forward(req, resp);
+            resp.sendRedirect("/profile");
+//            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/profile");
+//            requestDispatcher.forward(req, resp);
         } else {
             req.setAttribute("error", true);
             getServletConfig().getServletContext().getRequestDispatcher("/login.ftl").forward(req, resp);

@@ -19,4 +19,6 @@ public interface ItemsDao {
     Item findByPrimaryKey(Long id);
 
     List<Item> viewAllItems(int offset, int noOfRecords);
+
+    List<Item> viewItemsByGenre(int offset, int noOfRecords, String genre);
 }

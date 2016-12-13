@@ -3,6 +3,7 @@ package ru.kpfu.itis.liia_nurullina.dao.impl;
 
 import ru.kpfu.itis.liia_nurullina.dao.UsersDao;
 import ru.kpfu.itis.liia_nurullina.dao.factory.ConnectionFactory;
+import ru.kpfu.itis.liia_nurullina.dao.factory.JDBCTemplate;
 import ru.kpfu.itis.liia_nurullina.model.User;
 
 import java.sql.Connection;
@@ -13,15 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class UsersDaoImpl implements UsersDao {
-
-    Connection con = null;
-    PreparedStatement ptmt = null;
-    ResultSet rs = null;
-
-    private Connection getConnection() throws SQLException {
-        return ConnectionFactory.getInstance().getConnection();
-    }
+public class UsersDaoImpl extends JDBCTemplate implements UsersDao {
 
     public void add(User user) {
 
@@ -36,18 +29,7 @@ public class UsersDaoImpl implements UsersDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                if (rs != null)
-                    rs.close();
-                if (ptmt != null)
-                    ptmt.close();
-                if (con != null)
-                    con.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            closeResources();
         }
     }
 
@@ -65,18 +47,7 @@ public class UsersDaoImpl implements UsersDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                if (rs != null)
-                    rs.close();
-                if (ptmt != null)
-                    ptmt.close();
-                if (con != null)
-                    con.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            closeResources();
         }
     }
 
@@ -91,26 +62,14 @@ public class UsersDaoImpl implements UsersDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                if (rs != null)
-                    rs.close();
-                if (ptmt != null)
-                    ptmt.close();
-                if (con != null)
-                    con.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
+            closeResources();
         }
 
     }
 
     public List findAll() {
         List users = new ArrayList();
-        User user = null;
+        User user;
         try {
             String querystring = "SELECT * FROM users";
             con = getConnection();
@@ -128,19 +87,7 @@ public class UsersDaoImpl implements UsersDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                if (rs != null)
-                    rs.close();
-                if (ptmt != null)
-                    ptmt.close();
-                if (con != null)
-                    con.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
+            closeResources();
         }
         return users;
     }
@@ -163,19 +110,7 @@ public class UsersDaoImpl implements UsersDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                if (rs != null)
-                    rs.close();
-                if (ptmt != null)
-                    ptmt.close();
-                if (con != null)
-                    con.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
+            closeResources();
         }
         return user;
     }
@@ -198,19 +133,7 @@ public class UsersDaoImpl implements UsersDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                if (rs != null)
-                    rs.close();
-                if (ptmt != null)
-                    ptmt.close();
-                if (con != null)
-                    con.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
+            closeResources();
         }
         return user;
     }

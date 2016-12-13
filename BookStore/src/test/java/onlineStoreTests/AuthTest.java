@@ -47,6 +47,5 @@ public class AuthTest extends TestCase {
 
         System.out.println("Result: " + result);
 
-       // assertEquals("Вы успешно авторизованы!", result);
     }
 }

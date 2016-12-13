@@ -12,9 +12,11 @@ import java.util.List;
 public class ProductsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         HttpSession session = req.getSession(true);
         Cookie[] cookies = req.getCookies();
         String username = (String) session.getAttribute("session_uname");
+        String genre = (String) session.getAttribute("genre");
         if (username == null && cookies != null)
             for (int i = 0; i < cookies.length; i++) {
                 if (cookies[i].getName().equals("cookuser"))

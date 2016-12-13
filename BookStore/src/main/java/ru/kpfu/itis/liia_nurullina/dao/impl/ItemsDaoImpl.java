@@ -2,6 +2,7 @@ package ru.kpfu.itis.liia_nurullina.dao.impl;
 
 import ru.kpfu.itis.liia_nurullina.dao.ItemsDao;
 import ru.kpfu.itis.liia_nurullina.dao.factory.ConnectionFactory;
+import ru.kpfu.itis.liia_nurullina.dao.factory.JDBCTemplate;
 import ru.kpfu.itis.liia_nurullina.model.Item;
 
 import java.sql.*;
@@ -11,16 +12,7 @@ import java.util.List;
 /**
  * Created by Liia on 03.11.2016.
  */
-public class ItemsDaoImpl implements ItemsDao {
-    Connection con = null;
-    PreparedStatement ptmt = null;
-    ResultSet rs = null;
-    Statement stmt;
-    private int noOfRecords;
-
-    private Connection getConnection() throws SQLException {
-        return ConnectionFactory.getInstance().getConnection();
-    }
+public class ItemsDaoImpl extends JDBCTemplate implements ItemsDao {
 
     public void add(Item item) {
 
@@ -28,7 +20,6 @@ public class ItemsDaoImpl implements ItemsDao {
             String querystring = "INSERT INTO items(name, description, price, picture) VALUES (?, ?,?, ?)";
             con = getConnection();
             ptmt = con.prepareStatement(querystring);
-
             ptmt.setString(1, item.getName());
             ptmt.setString(2, item.getDescription());
             ptmt.setFloat(3, item.getPrice());
@@ -37,18 +28,7 @@ public class ItemsDaoImpl implements ItemsDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                if (rs != null)
-                    rs.close();
-                if (ptmt != null)
-                    ptmt.close();
-                if (con != null)
-                    con.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            closeResources();
         }
     }
 
@@ -68,18 +48,7 @@ public class ItemsDaoImpl implements ItemsDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                if (rs != null)
-                    rs.close();
-                if (ptmt != null)
-                    ptmt.close();
-                if (con != null)
-                    con.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            closeResources();
         }
     }
 
@@ -94,19 +63,7 @@ public class ItemsDaoImpl implements ItemsDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                if (rs != null)
-                    rs.close();
-                if (ptmt != null)
-                    ptmt.close();
-                if (con != null)
-                    con.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
+            closeResources();
         }
 
     }
@@ -121,30 +78,13 @@ public class ItemsDaoImpl implements ItemsDao {
             rs = ptmt.executeQuery();
             while (rs.next()) {
                 item = new Item();
-                item.setId(rs.getLong("item_id"));
-                item.setName(rs.getString("name"));
-                item.setDescription(rs.getString("description"));
-                item.setPrice(rs.getFloat("price"));
-                item.setPicture(rs.getString("picture"));
-
+                addFieldsToItem(item);
                 items.add(item);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                if (rs != null)
-                    rs.close();
-                if (ptmt != null)
-                    ptmt.close();
-                if (con != null)
-                    con.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
+            closeResources();
         }
         return items;
     }
@@ -159,28 +99,12 @@ public class ItemsDaoImpl implements ItemsDao {
             rs = ptmt.executeQuery();
             if (rs.next()) {
                 item = new Item();
-                item.setName(rs.getString("name"));
-                item.setDescription(rs.getString("description"));
-                item.setPrice(rs.getFloat("price"));
-                item.setPicture(rs.getString("picture"));
-                item.setId(id);
+                addFieldsToItem(item);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                if (rs != null)
-                    rs.close();
-                if (ptmt != null)
-                    ptmt.close();
-                if (con != null)
-                    con.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
+            closeResources();
         }
         return item;
     }
@@ -197,11 +121,7 @@ public class ItemsDaoImpl implements ItemsDao {
 
             while (rs.next()) {
                 item = new Item();
-                item.setName(rs.getString("name"));
-                item.setDescription(rs.getString("description"));
-                item.setPrice(rs.getFloat("price"));
-                item.setPicture(rs.getString("picture"));
-                item.setId(rs.getLong("item_id"));
+                addFieldsToItem(item);
                 list.add(item);
             }
             rs.close();
@@ -209,15 +129,45 @@ public class ItemsDaoImpl implements ItemsDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                if (stmt != null)
-                    stmt.close();
-                if (con != null)
-                    con.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            closeResources();
         }
         return list;
+    }
+
+    @Override
+    public List<Item> viewItemsByGenre(int offset, int noOfRecords, String genre) {
+        String query = "select * from items WHERE genre like ? order by price limit " + noOfRecords + " offset" + offset;
+        List<Item> list = new ArrayList<>();
+        Item item;
+        try {
+            con = getConnection();
+            ptmt = con.prepareStatement(query);
+            ptmt.setString(1, genre);
+//            ptmt.setInt(2, noOfRecords);
+//            ptmt.setInt(3, offset);
+            rs = ptmt.executeQuery();
+
+            while (rs.next()) {
+                item = new Item();
+                addFieldsToItem(item);
+                list.add(item);
+            }
+            rs.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeResources();
+        }
+        return list;
+    }
+
+    private void addFieldsToItem(Item item) throws SQLException {
+        item.setName(rs.getString("name"));
+        item.setDescription(rs.getString("description"));
+        item.setPrice(rs.getFloat("price"));
+        item.setPicture(rs.getString("picture"));
+        item.setGenre(rs.getString("genre"));
+        item.setId(rs.getLong("item_id"));
     }
 }

@@ -14,10 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Bucket extends HttpServlet {
+    private int cost;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int cost = 0;
+        cost = 0;
         HttpSession session = req.getSession(true);
         if (session.getAttribute("cost") != null) {
             cost = (int) session.getAttribute("cost");
@@ -28,7 +29,7 @@ public class Bucket extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int cost = 0;
+        cost = 0;
         String id = req.getParameter("id");
         ItemsDao impl = new ItemsDaoImpl();
         Item item = impl.findByPrimaryKey(Long.parseLong(id));

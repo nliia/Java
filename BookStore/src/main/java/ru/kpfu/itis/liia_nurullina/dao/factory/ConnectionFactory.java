@@ -20,9 +20,13 @@ public class ConnectionFactory {
         }
     }
 
-    public Connection getConnection() throws SQLException {
+    public Connection getConnection() {
         Connection conn = null;
-        conn = DriverManager.getConnection(connectionUrl, dbUser, dbPwd);
+        try {
+            conn = DriverManager.getConnection(connectionUrl, dbUser, dbPwd);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return conn;
     }
 

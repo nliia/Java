@@ -42,6 +42,15 @@
         </div>
     </div>
 </div>
+<form action="/" method="get"></form>
+<select name="hero">
+    <option selected>Выберите жанр</option>
+    <option value="Fantasy">Фэнтэзи</option>
+    <option value="Comedy">Комедия</option>
+    <option value="Detective">Детектив</option>
+    <option value="Drama">Драма</option>
+</select>
+<input type="submit" value="Применить">
 
 <c:choose>
     <c:when test="${not empty products}">
@@ -56,7 +65,9 @@
             <img src="/images/${item.picture}" width="100" height="100" alt="${item.picture}">
             <c:if test="${sessionScope.session_uname == 'admin'}">
                 <form action="/delete" method="post">
-                    <button type="submit" name="id" value="${item.id}" onclick="return confirm('Вы уверены, что хотите удалить?')">Удалить</button>
+                    <button type="submit" name="id" value="${item.id}"
+                            onclick="return confirm('Вы уверены, что хотите удалить?')">Удалить
+                    </button>
                 </form>
                 <a href="/editItem?id=${item.id}">
                     <div>Изменить товар</div>
@@ -64,7 +75,8 @@
             </c:if>
 
             <form action="/bucket" method="post">
-                <button type="submit" name="id" value="${item.id}" onclick="alert('Добавлено!')">Добавить в корзину</button>
+                <button type="submit" name="id" value="${item.id}" onclick="alert('Добавлено!')">Добавить в корзину
+                </button>
             </form>
         </c:forEach>
 
@@ -95,6 +107,5 @@
         <h3>Товары пока не добавлены</h3>
     </c:otherwise>
 </c:choose>
-
 </body>
 </html>

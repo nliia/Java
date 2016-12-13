@@ -2,6 +2,7 @@ package ru.kpfu.itis.liia_nurullina.dao.impl;
 
 import ru.kpfu.itis.liia_nurullina.dao.CommentsDao;
 import ru.kpfu.itis.liia_nurullina.dao.factory.ConnectionFactory;
+import ru.kpfu.itis.liia_nurullina.dao.factory.JDBCTemplate;
 import ru.kpfu.itis.liia_nurullina.model.Comment;
 
 import java.sql.Connection;
@@ -14,15 +15,7 @@ import java.util.List;
 /**
  * Created by Liia on 20.11.2016.
  */
-public class CommentsDaoImpl implements CommentsDao {
-
-    Connection con = null;
-    PreparedStatement ptmt = null;
-    ResultSet rs = null;
-
-    private Connection getConnection() throws SQLException {
-        return ConnectionFactory.getInstance().getConnection();
-    }
+public class CommentsDaoImpl extends JDBCTemplate implements CommentsDao {
 
     public void add(Comment comment) {
         try {
@@ -39,18 +32,7 @@ public class CommentsDaoImpl implements CommentsDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                if (rs != null)
-                    rs.close();
-                if (ptmt != null)
-                    ptmt.close();
-                if (con != null)
-                    con.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            closeResources();
         }
     }
 
@@ -65,19 +47,7 @@ public class CommentsDaoImpl implements CommentsDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                if (rs != null)
-                    rs.close();
-                if (ptmt != null)
-                    ptmt.close();
-                if (con != null)
-                    con.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
+            closeResources();
         }
 
     }
@@ -103,19 +73,7 @@ public class CommentsDaoImpl implements CommentsDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                if (rs != null)
-                    rs.close();
-                if (ptmt != null)
-                    ptmt.close();
-                if (con != null)
-                    con.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
+            closeResources();
         }
         return comments;
     }
@@ -140,19 +98,7 @@ public class CommentsDaoImpl implements CommentsDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                if (rs != null)
-                    rs.close();
-                if (ptmt != null)
-                    ptmt.close();
-                if (con != null)
-                    con.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
+            closeResources();
         }
         return comment;
     }
@@ -180,19 +126,7 @@ public class CommentsDaoImpl implements CommentsDao {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                if (rs != null)
-                    rs.close();
-                if (ptmt != null)
-                    ptmt.close();
-                if (con != null)
-                    con.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
+            closeResources();
         }
         return comments;
     }

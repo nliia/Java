@@ -17,7 +17,7 @@ import ru.kpfu.itis.liia_nurullina.model.Item;
 
 public class AddItem extends HttpServlet {
     private Random random = new Random();
-    Item newItem = new Item();
+    private Item newItem = new Item();
     private String filePath = "";
 
     public void init() {

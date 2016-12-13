@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class DeleteFromCart extends HttpServlet {
+
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
@@ -27,7 +29,6 @@ public class DeleteFromCart extends HttpServlet {
         req.getSession().setAttribute("cart", cart);
         getServletConfig().getServletContext().getRequestDispatcher("/jsp/cart.jsp").forward(req, resp);
     }
-
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

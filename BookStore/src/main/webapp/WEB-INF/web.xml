@@ -12,6 +12,38 @@
         </param-value>
     </context-param>
 
+    <filter>
+        <filter-name>LoginFilter</filter-name>
+        <filter-class>ru.kpfu.itis.liia_nurullina.filters.LoginFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/login</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>ProfileFilter</filter-name>
+        <filter-class>ru.kpfu.itis.liia_nurullina.filters.ProfileFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>ProfileFilter</filter-name>
+        <url-pattern>/profile</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>AddItemFilter</filter-name>
+        <filter-class>ru.kpfu.itis.liia_nurullina.filters.AddItemFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AddItemFilter</filter-name>
+        <url-pattern>/AddItem</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>EditItemFilter</filter-name>
+        <filter-class>ru.kpfu.itis.liia_nurullina.filters.EditItemFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>EditItemFilter</filter-name>
+        <url-pattern>/EditItem</url-pattern>
+    </filter-mapping>
     <servlet>
         <servlet-name>freemarker</servlet-name>
         <servlet-class>freemarker.ext.servlet.FreemarkerServlet</servlet-class>
@@ -42,17 +74,17 @@
         <servlet-class>ru.kpfu.itis.liia_nurullina.servlet.LoginServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
-    
+
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
-    
+
     <servlet>
         <servlet-name>ProfileServlet</servlet-name>
         <servlet-class>ru.kpfu.itis.liia_nurullina.servlet.ProfileServlet</servlet-class>
     </servlet>
-    
+
     <servlet-mapping>
         <servlet-name>ProfileServlet</servlet-name>
         <url-pattern>/profile</url-pattern>
@@ -72,7 +104,7 @@
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>ru.kpfu.itis.liia_nurullina.servlet.LogoutServlet</servlet-class>
     </servlet>
-    
+
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/logout</url-pattern>
@@ -86,7 +118,7 @@
         <servlet-name>AddItem</servlet-name>
         <url-pattern>/AddItem</url-pattern>
     </servlet-mapping>
-    
+
     <servlet>
         <servlet-name>ProductsServlet</servlet-name>
         <servlet-class>ru.kpfu.itis.liia_nurullina.servlet.ProductsServlet</servlet-class>
@@ -103,7 +135,7 @@
         <servlet-name>DeleteItem</servlet-name>
         <url-pattern>/delete</url-pattern>
     </servlet-mapping>
-    
+
     <servlet>
         <servlet-name>Bucket</servlet-name>
         <servlet-class>ru.kpfu.itis.liia_nurullina.servlet.Bucket</servlet-class>
@@ -125,27 +157,27 @@
         <servlet-name>ShowItem</servlet-name>
         <servlet-class>ru.kpfu.itis.liia_nurullina.servlet.ShowItem</servlet-class>
     </servlet>
-    
+
     <servlet-mapping>
         <servlet-name>ShowItem</servlet-name>
         <url-pattern>/item</url-pattern>
     </servlet-mapping>
-    
+
     <servlet>
         <servlet-name>AddComment</servlet-name>
         <servlet-class>ru.kpfu.itis.liia_nurullina.servlet.AddComment</servlet-class>
     </servlet>
-    
+
     <servlet-mapping>
         <servlet-name>AddComment</servlet-name>
         <url-pattern>/addComment</url-pattern>
     </servlet-mapping>
-    
+
     <servlet>
         <servlet-name>EditItem</servlet-name>
         <servlet-class>ru.kpfu.itis.liia_nurullina.servlet.EditItem</servlet-class>
     </servlet>
-    
+
     <servlet-mapping>
         <servlet-name>EditItem</servlet-name>
         <url-pattern>/editItem</url-pattern>

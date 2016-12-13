@@ -6,6 +6,7 @@ public class Item {
     private String description;
     private float price;
     private String picture;
+    private String genre;
 
     public Long getId() {
         return id;
@@ -69,4 +70,11 @@ public class Item {
         return true;
     }
 
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
 }

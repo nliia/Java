@@ -1,60 +1,9 @@
-<!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
-<head>
-    <title>Авторизация</title>
-    <link href="css/logReg.css" rel="stylesheet" type="text/css"/>
-    <link href="css/stylesheet.css" rel="stylesheet" type="text/css"/>
-</head>
 
-<body>
-
-<#if (Request.getRequest().cookies)??>
-<script language='javascript'>
-    var delay = 0;
-    setTimeout("document.location.href='/login'", delay);
-</script>
-</#if>
-<div id="top_bar_black">
-    <div id="logo_container">
-        <div id="logo_image"></div>
-        <div id="nav_block">
-            <a href="/" class="selected">
-                <div class="nav_button">Товары</div>
-            </a>
-        <#if Session.session_uname??>
-
-            <a href="/bucket">
-                <div class="nav_button">Корзина</div>
-            </a>
-            <a href="/profile">
-                <div class="nav_button">Профиль</div>
-            </a>
-            <a href="/logout">
-                <div class="nav_button">Выйти</div>
-            </a>
-            <#if Session.session_uname == "admin">
-                <a href="/AddItem">
-                    <div class="nav_button">Добавить товар</div>
-                </a>
-            </#if>
-        <#else>
-
-            <a href="/reg">
-                <div class="nav_button">Регистрация</div>
-            </a>
-            <a href="/login">
-                <div class="nav_button">Войти</div>
-            </a>
-        </#if>
-
-        </div>
-    </div>
-</div>
-
+<#include "menuTemplate.ftl">
+<#macro content>
 <#if error??>
 <h3>Неверный логин или пароль</h3>
 </#if>
-
 <div id="login-form">
 
     <h1>АВТОРИЗАЦИЯ</h1>
@@ -70,6 +19,4 @@
         <h3><a href="reg">Перейти к регистрации</a></h3>
     </fieldset>
 </div>
-</div>
-</body>
-</html>
+</#macro>
