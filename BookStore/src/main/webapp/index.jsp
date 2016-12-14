@@ -5,6 +5,7 @@
     <link href="css/stylesheet.css" rel="stylesheet" type="text/css"/>
     <link href="css/simplePagination.css" rel="stylesheet" type="text/css"/>
     <title>BookStore</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 </head>
 <body>
 <div id="top_bar_black">
@@ -43,17 +44,21 @@
     </div>
 </div>
 <form action="/" method="get"></form>
-<select name="hero">
+<select name="hero" id="genre" onchange="func()">
     <option selected>Выберите жанр</option>
-    <option value="Fantasy">Фэнтэзи</option>
-    <option value="Comedy">Комедия</option>
-    <option value="Detective">Детектив</option>
-    <option value="Drama">Драма</option>
+    <option value="fantasy">Фэнтэзи</option>
+    <option value="comedy">Комедия</option>
+    <option value="detective">Детектив</option>
+    <option value="drama">Драма</option>
 </select>
-<input type="submit" value="Применить">
+<%--<input type="submit" value="Применить" onclick="func()">--%>
+<div id="res">
+    <p>Results</p>
+</div>
 
 <c:choose>
     <c:when test="${not empty products}">
+
 
         <c:forEach items="${products}" var="item">
 
@@ -107,5 +112,37 @@
         <h3>Товары пока не добавлены</h3>
     </c:otherwise>
 </c:choose>
+
+
+<script type="application/javascript">
+    var func = function () {
+        $.ajax({
+            'contentType': 'application/javascript; charset=utf-8',
+            'url': '/search',
+            'data': {
+                'genre': $("#genre").val()
+            },
+            'type': 'get',
+            'success': function (obj) {
+                var data = obj.result;
+                var htmlText = "";
+                for (var key in data) {
+
+                    htmlText += "<a class=\"row\" href=\"/item?id=" + data[key].id + "\">";
+                    htmlText += "<p>" + data[key].name + "</p>";
+                    htmlText += "</a>";
+                }
+                $("#res").html(htmlText);
+            }
+        })
+    }
+
+    $(document).ready()
+    {
+        func();
+    }
+</script>
+
+
 </body>
 </html>

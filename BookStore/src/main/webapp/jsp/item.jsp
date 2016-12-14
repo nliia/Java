@@ -5,6 +5,7 @@
     <link href="css/stylesheet.css" rel="stylesheet" type="text/css"/>
     <link type="text/css" rel="stylesheet" href="css/simplePagination.css"/>
     <title>BookStore</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 </head>
 <body>
 <div id="top_bar_black">

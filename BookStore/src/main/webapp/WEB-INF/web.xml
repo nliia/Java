@@ -182,4 +182,13 @@
         <servlet-name>EditItem</servlet-name>
         <url-pattern>/editItem</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ajaxSearch</servlet-name>
+        <servlet-class>ru.kpfu.itis.liia_nurullina.servlet.AjaxSearch</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ajaxSearch</servlet-name>
+        <url-pattern>/search</url-pattern>
+    </servlet-mapping>
 </web-app>

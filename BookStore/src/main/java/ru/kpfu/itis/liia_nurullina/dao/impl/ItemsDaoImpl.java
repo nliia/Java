@@ -1,11 +1,10 @@
 package ru.kpfu.itis.liia_nurullina.dao.impl;
 
 import ru.kpfu.itis.liia_nurullina.dao.ItemsDao;
-import ru.kpfu.itis.liia_nurullina.dao.factory.ConnectionFactory;
 import ru.kpfu.itis.liia_nurullina.dao.factory.JDBCTemplate;
 import ru.kpfu.itis.liia_nurullina.model.Item;
 
-import java.sql.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -136,7 +135,8 @@ public class ItemsDaoImpl extends JDBCTemplate implements ItemsDao {
 
     @Override
     public List<Item> viewItemsByGenre(int offset, int noOfRecords, String genre) {
-        String query = "select * from items WHERE genre like ? order by price limit " + noOfRecords + " offset" + offset;
+//        String query = "select * from items WHERE genre like ? order by price limit " + noOfRecords + " offset" + offset + "";
+        String query = "select * from items WHERE genre like ? order by price ";
         List<Item> list = new ArrayList<>();
         Item item;
         try {
