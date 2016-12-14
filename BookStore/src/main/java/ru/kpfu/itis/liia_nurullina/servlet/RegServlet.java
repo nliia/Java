@@ -18,6 +18,18 @@ import java.util.regex.Pattern;
 
 public class RegServlet extends HttpServlet {
 
+    private static boolean checkEmail(String email) {
+        Pattern p = Pattern.compile("^([a-z0-9_-]+\\.)*[a-z0-9_-]+@[a-z0-9_-]+(\\.[a-z0-9_-]+)*\\.[a-z]{2,6}$");
+        Matcher m = p.matcher(email);
+        return m.matches();
+    }
+
+    private static boolean checkPassword(String psw) {
+        Pattern p = Pattern.compile("^[a-z0-9_-]{6,18}$");
+        Matcher m = p.matcher(psw);
+        return m.matches();
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         getServletConfig().getServletContext().getRequestDispatcher("/reg.ftl").forward(req, resp);
@@ -79,17 +91,5 @@ public class RegServlet extends HttpServlet {
             req.setAttribute("pswFormat", pswFormat);
             getServletConfig().getServletContext().getRequestDispatcher("/reg.ftl").forward(req, resp);
         }
-    }
-
-    private static boolean checkEmail(String email) {
-        Pattern p = Pattern.compile("^([a-z0-9_-]+\\.)*[a-z0-9_-]+@[a-z0-9_-]+(\\.[a-z0-9_-]+)*\\.[a-z]{2,6}$");
-        Matcher m = p.matcher(email);
-        return m.matches();
-    }
-
-    private static boolean checkPassword(String psw) {
-        Pattern p = Pattern.compile("^[a-z0-9_-]{6,18}$");
-        Matcher m = p.matcher(psw);
-        return m.matches();
     }
 }

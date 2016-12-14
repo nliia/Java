@@ -17,10 +17,10 @@ import java.util.List;
 import java.util.Random;
 
 public class EditItem extends HttpServlet {
-    private Random random = new Random();
-    Item newItem = new Item();
-    private String filePath = "";
     private static ItemsDao impl;
+    Item newItem = new Item();
+    private Random random = new Random();
+    private String filePath = "";
 
     public void init() {
 

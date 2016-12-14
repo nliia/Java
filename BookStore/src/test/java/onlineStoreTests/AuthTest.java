@@ -2,11 +2,6 @@ package onlineStoreTests;
 
 import junit.framework.TestCase;
 import org.junit.Test;
-
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-
 import ru.kpfu.itis.liia_nurullina.servlet.LoginServlet;
 
 import javax.servlet.RequestDispatcher;
@@ -14,10 +9,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by Liia on 19.10.2016.

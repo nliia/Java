@@ -59,7 +59,6 @@
 <c:choose>
     <c:when test="${not empty products}">
 
-
         <c:forEach items="${products}" var="item">
 
             <form action="/item" method="get">
@@ -131,6 +130,7 @@
                     htmlText += "<a class=\"row\" href=\"/item?id=" + data[key].id + "\">";
                     htmlText += "<p>" + data[key].name + "</p>";
                     htmlText += "</a>";
+
                 }
                 $("#res").html(htmlText);
             }

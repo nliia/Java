@@ -4,8 +4,8 @@ import ru.kpfu.itis.liia_nurullina.dao.CommentsDao;
 import ru.kpfu.itis.liia_nurullina.dao.ItemsDao;
 import ru.kpfu.itis.liia_nurullina.dao.impl.CommentsDaoImpl;
 import ru.kpfu.itis.liia_nurullina.dao.impl.ItemsDaoImpl;
-import ru.kpfu.itis.liia_nurullina.model.Item;
 import ru.kpfu.itis.liia_nurullina.model.Comment;
+import ru.kpfu.itis.liia_nurullina.model.Item;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

@@ -1,9 +1,8 @@
-
 <#include "menuTemplate.ftl">
 <#macro content>
-<#if Message??>
-${Message}
-</#if>
+    <#if Message??>
+    ${Message}
+    </#if>
 <h4>Добавить товар:</h4><br/>
 <form action="AddItem" method="post" enctype="multipart/form-data">
     <br>

@@ -58,9 +58,34 @@
 <c:choose>
     <c:when test="${sessionScope.session_uname != null}">
         <form action="/addComment" method="post">
-            <input type="text" class="input" name="comment" placeholder="Ваш комментарий" required>
+            <script>
+                $(document).ready(function () {
+                    var maxCount = 2000;
+
+                    $("#counter").html(maxCount);
+
+                    $("#comment1").keyup(function () {
+                        var revText = this.value.length;
+
+                        if (this.value.length > maxCount) {
+                            this.value = this.value.substr(0, maxCount);
+                        }
+                        var cnt = (maxCount - revText);
+                        if (cnt <= 0) {
+                            $("#counter").html('0');
+                        }
+                        else {
+                            $("#counter").html(cnt);
+                        }
+
+                    });
+                });
+            </script>
+            <input type="text" class="input" id="comment1" name="comment" oninput="ready()"
+                   placeholder="Ваш комментарий" required>
             <input type="hidden" value="${sessionScope.session_uname}" name="username">
             <input type="hidden" value="${item.id}" name="item_id">
+            <div class="counter">Осталось символов: <span id="counter"></span></div>
             <input type="submit" class="submit" value="Добавить">
         </form>
     </c:when>
@@ -75,6 +100,7 @@
             <div class="comment">
                 <h3>
                         ${item.login}
+                        <%--<c:if test="${item.date}!=null"> ${item.date}</c:if>--%>
                         ${item.date}
                         ${item.text}
                 </h3>

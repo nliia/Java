@@ -1,13 +1,9 @@
 package ru.kpfu.itis.liia_nurullina.dao.impl;
 
 import ru.kpfu.itis.liia_nurullina.dao.CommentsDao;
-import ru.kpfu.itis.liia_nurullina.dao.factory.ConnectionFactory;
 import ru.kpfu.itis.liia_nurullina.dao.factory.JDBCTemplate;
 import ru.kpfu.itis.liia_nurullina.model.Comment;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;

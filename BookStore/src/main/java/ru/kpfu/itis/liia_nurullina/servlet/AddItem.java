@@ -1,19 +1,20 @@
 package ru.kpfu.itis.liia_nurullina.servlet;
 
+import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import ru.kpfu.itis.liia_nurullina.dao.ItemsDao;
+import ru.kpfu.itis.liia_nurullina.dao.impl.ItemsDaoImpl;
+import ru.kpfu.itis.liia_nurullina.model.Item;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
-
-import org.apache.commons.fileupload.*;
-import ru.kpfu.itis.liia_nurullina.dao.ItemsDao;
-import ru.kpfu.itis.liia_nurullina.dao.impl.ItemsDaoImpl;
-import ru.kpfu.itis.liia_nurullina.model.Item;
 
 public class AddItem extends HttpServlet {
     private Random random = new Random();

@@ -1,9 +1,8 @@
-
 <#include "menuTemplate.ftl">
 <#macro content>
-<#if error??>
-<h3>Неверный логин или пароль</h3>
-</#if>
+    <#if error??>
+    <h3>Неверный логин или пароль</h3>
+    </#if>
 <div id="login-form">
 
     <h1>АВТОРИЗАЦИЯ</h1>
