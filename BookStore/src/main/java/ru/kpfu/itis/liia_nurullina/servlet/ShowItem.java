@@ -13,12 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
+
 //страница товара
 public class ShowItem extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-       //получаем айди, находим товар и его комменты
+        //получаем айди, находим товар и его комменты
         Long id = Long.parseLong(req.getParameter("id"));
         ItemsDao itemsDao = new ItemsDaoImpl();
         Item item = itemsDao.findByPrimaryKey(id);

@@ -20,6 +20,7 @@ public class RegServlet extends HttpServlet {
     private static final String EMAIL_PATTERN = "^([a-z0-9_-]+\\.)*[a-z0-9_-]+@[a-z0-9_-]+(\\.[a-z0-9_-]+)*\\.[a-z]{2,6}$";
     private static final String PASSWORD_PATTERN = "^[a-z0-9_-]{6,18}$";
     private static final String SALT = "QxLUF1bgIAdeQX";
+
     //проверяем формат мэилла
     private static boolean checkEmail(String email) {
         Pattern p = Pattern.compile(EMAIL_PATTERN);

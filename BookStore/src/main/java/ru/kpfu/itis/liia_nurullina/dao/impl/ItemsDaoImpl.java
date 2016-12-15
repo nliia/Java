@@ -16,13 +16,14 @@ public class ItemsDaoImpl extends JDBCTemplate implements ItemsDao {
     public void add(Item item) {
 
         try {
-            String querystring = "INSERT INTO items(name, description, price, picture) VALUES (?, ?,?, ?)";
+            String querystring = "INSERT INTO items(name, description, price, picture, genre) VALUES (?, ?,?, ?,?)";
             con = getConnection();
             ptmt = con.prepareStatement(querystring);
             ptmt.setString(1, item.getName());
             ptmt.setString(2, item.getDescription());
             ptmt.setFloat(3, item.getPrice());
             ptmt.setString(4, item.getPicture());
+            ptmt.setString(5, item.getGenre());
             ptmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -33,7 +34,7 @@ public class ItemsDaoImpl extends JDBCTemplate implements ItemsDao {
 
     public void update(Item item) {
         try {
-            String querystring = "UPDATE items SET name =?,description =?, price =?, picture =? WHERE item_id = ?";
+            String querystring = "UPDATE items SET name = ?,description = ?, price = ?, picture = ? , genre = ? WHERE item_id = ?";
             con = getConnection();
             ptmt = con.prepareStatement(querystring);
 
@@ -41,7 +42,8 @@ public class ItemsDaoImpl extends JDBCTemplate implements ItemsDao {
             ptmt.setString(2, item.getDescription());
             ptmt.setFloat(3, item.getPrice());
             ptmt.setString(4, item.getPicture());
-            ptmt.setLong(5, item.getId());
+            ptmt.setString(5, item.getGenre());
+            ptmt.setLong(6, item.getId());
             ptmt.executeUpdate();
 
         } catch (SQLException e) {
@@ -135,8 +137,8 @@ public class ItemsDaoImpl extends JDBCTemplate implements ItemsDao {
 
     @Override
     public List<Item> viewItemsByGenre(int offset, int noOfRecords, String genre) {
-//        String query = "select * from items WHERE genre like ? order by price limit " + noOfRecords + " offset" + offset + "";
-        String query = "select * from items WHERE genre like ? order by price ";
+        String query = "select * from items WHERE genre like ? order by price limit " + noOfRecords + " offset" + offset + "";
+//        String query = "select * from items WHERE genre like ? order by price ";
         List<Item> list = new ArrayList<>();
         Item item;
         try {

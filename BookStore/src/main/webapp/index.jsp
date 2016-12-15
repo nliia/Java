@@ -45,8 +45,8 @@
 </div>
 
 <form action="/" method="get"></form>
-<select id="genre">
-    <option selected>Выберите жанр</option>
+<select name="genre">
+    <option value="%" selected>Выберите жанр</option>
     <option value="fantasy">Фэнтэзи</option>
     <option value="comedy">Комедия</option>
     <option value="detective">Детектив</option>
@@ -78,7 +78,8 @@
 
             <form id="addToCartForm" action="/bucket" method="post">
                 <input type="hidden" name="id" value="${item.id}"/>
-                <input type="submit" name="submit" class="submit" value="Добавить в корзину"/>
+                <input type="submit" name="submit" class="submit" value="Добавить в корзину"
+                       onclick="this.value='Добавлено'"/>
             </form>
 
         </c:forEach>

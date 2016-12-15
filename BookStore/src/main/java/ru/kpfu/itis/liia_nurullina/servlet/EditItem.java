@@ -21,6 +21,7 @@ public class EditItem extends HttpServlet {
     private Item newItem = new Item();
     private Random random = new Random();
     private String filePath = "";
+
     //получили путь для загрузки из web.xml
     public void init() {
         filePath = getServletContext().getInitParameter("file-upload");
@@ -103,7 +104,9 @@ public class EditItem extends HttpServlet {
         if (item.getFieldName().equals("description")) {
             newItem.setDescription(item.getString());
         }
-
+        if (item.getFieldName().equals("genre")) {
+            newItem.setGenre(item.getString());
+        }
         if (item.getFieldName().equals("price")) {
             float price = Float.parseFloat(item.getString());
 

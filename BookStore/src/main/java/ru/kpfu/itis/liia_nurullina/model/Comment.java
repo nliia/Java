@@ -1,7 +1,5 @@
 package ru.kpfu.itis.liia_nurullina.model;
 
-import java.sql.Timestamp;
-
 public class Comment {
     private Long comment_id;
     private Long user_id;

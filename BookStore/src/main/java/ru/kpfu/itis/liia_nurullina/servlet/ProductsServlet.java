@@ -28,13 +28,18 @@ public class ProductsServlet extends HttpServlet {
         int recordsPerPage = 3;
         //но если в запросе пришла какая то страница, то берем ее
         String pageFromRequest = req.getParameter("page");
+//        String genre = req.getParameter("genre");
         if (pageFromRequest != null)
             page = Integer.parseInt(pageFromRequest);
 
         ItemsDao itemsDao = new ItemsDaoImpl();
         List<Item> productsSub;
         //получаем саблист товаров с количествой recordsPerPage и начиная с позиции (page - 1) * recordsPerPage
+//        if (genre.equals(null)) {
         productsSub = itemsDao.viewAllItems((page - 1) * recordsPerPage, recordsPerPage);
+//        } else {
+//            productsSub = itemsDao.viewItemsByGenre((page - 1) * recordsPerPage, recordsPerPage, genre);
+//        }
         //получаем общее кол-во товаров
         int noOfRecords = itemsDao.size();
         //выясняем сколько всего страниц будет

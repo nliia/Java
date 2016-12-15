@@ -9,6 +9,7 @@
         <param-name>file-upload</param-name>
         <param-value>
             C:\Users\Liia\IdeaProjects\BookStore\src\main\webapp\images\
+            <!--C:\Java\BookStore\src\main\webapp\images\-->
         </param-value>
     </context-param>
 

@@ -15,6 +15,7 @@ import java.io.File;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+
 //тут происходит все то же самое что в EditItem.java только объект не обновляем  а добавляем новый!!!
 public class AddItem extends HttpServlet {
     private Random random = new Random();
@@ -93,6 +94,9 @@ public class AddItem extends HttpServlet {
             newItem.setDescription(item.getString());
         }
 
+        if (item.getFieldName().equals("genre")) {
+            newItem.setGenre(item.getString());
+        }
         if (item.getFieldName().equals("price")) {
             float price = Float.parseFloat(item.getString());
 

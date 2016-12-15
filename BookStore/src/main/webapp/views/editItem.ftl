@@ -15,6 +15,7 @@
     <input type="text" class="input" name="name" placeholder="Название товара" required>
     <input type="text" class="input" name="description" placeholder="Описание" required>
     <input type="number" class="input" name="price" placeholder="Цена" required>
+    <input type="text" class="input" name="genre" placeholder="Жанр" required>
     <input type="file" class="btn" name="image" size="50" required>
     <input type="submit" class="submit" value="Изменить"/>
 </form
