@@ -5,26 +5,23 @@ import javax.servlet.http.*;
 import java.io.IOException;
 
 public class LogoutServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
-        Cookie[] cookies = request.getCookies();
-
+        //создаем куки с названиями такими же, ставим время жизни 0 и добавляем их
         Cookie cUserName = new Cookie("cookuser", null);
-        Cookie cPassword = new Cookie("cookpass", null);
         Cookie cRemember = new Cookie("cookrem", null);
         cUserName.setMaxAge(0);
-        cPassword.setMaxAge(0);
         cRemember.setMaxAge(0);
         response.addCookie(cUserName);
-        response.addCookie(cPassword);
         response.addCookie(cRemember);
+        //убиваем сессию
         HttpSession session = request.getSession(false);
         if (session != null) {
             session.invalidate();
         }
+
         getServletConfig().getServletContext().getRequestDispatcher("/login.ftl").forward(request, response);
     }
 

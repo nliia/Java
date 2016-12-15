@@ -162,6 +162,23 @@ public class ItemsDaoImpl extends JDBCTemplate implements ItemsDao {
         return list;
     }
 
+    @Override
+    public int size() {
+        int size = 0;
+        String query = "SELECT COUNT(*) FROM items";
+        try {
+            con = getConnection();
+            ptmt = con.prepareStatement(query);
+            rs = ptmt.executeQuery();
+            if (rs.next()) {
+                size = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return size;
+    }
+
     private void addFieldsToItem(Item item) throws SQLException {
         item.setName(rs.getString("name"));
         item.setDescription(rs.getString("description"));

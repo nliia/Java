@@ -13,40 +13,50 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+//сервлет добавляет в корзину, меняет стоимость заказа
 public class Bucket extends HttpServlet {
-    private int cost;
+    private int newCost;
+    private Object cost;
+    private List cart;
+    private Item item;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        cost = 0;
+        newCost = 0;
         HttpSession session = req.getSession(true);
         if (session.getAttribute("cost") != null) {
-            cost = (int) session.getAttribute("cost");
+            newCost = (int) session.getAttribute("cost");
         }
-        req.getSession().setAttribute("cost", cost);
+        req.getSession().setAttribute("cost", newCost);
         getServletConfig().getServletContext().getRequestDispatcher("/jsp/cart.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        cost = 0;
-        String id = req.getParameter("id");
-        ItemsDao impl = new ItemsDaoImpl();
-        Item item = impl.findByPrimaryKey(Long.parseLong(id));
         HttpSession session = req.getSession(true);
-        if (session.getAttribute("cost") != null) {
-            cost = (int) session.getAttribute("cost");
+        newCost = 0;
+        cost = session.getAttribute("cost");
+        String id = req.getParameter("id");
+        //по айди находим товар в бд
+        ItemsDao impl = new ItemsDaoImpl();
+        item = impl.findByPrimaryKey(Long.parseLong(id));
+        //если какая то стоимость уже существвует то берем ее, если нет
+        if (cost != null) {
+            newCost = (int) cost;
         }
-        List cart = (List) session.getAttribute("cart");
+        //берем корзину из сессии и добавляем ее(если нет, то новую создаем)
+        cart = (List) session.getAttribute("cart");
+
         if (cart == null) {
             cart = new ArrayList();
             cart.add(item);
         } else {
             cart.add(item);
         }
-
-        cost += item.getPrice();
-        req.getSession().setAttribute("cost", cost);
+        //меняем стоимость
+        newCost += item.getPrice();
+        //добавляем все в сессию
+        req.getSession().setAttribute("cost", newCost);
         req.getSession().setAttribute("cart", cart);
         resp.sendRedirect("/");
     }

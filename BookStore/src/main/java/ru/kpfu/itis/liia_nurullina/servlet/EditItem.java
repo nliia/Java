@@ -17,13 +17,12 @@ import java.util.List;
 import java.util.Random;
 
 public class EditItem extends HttpServlet {
-    private static ItemsDao impl;
-    Item newItem = new Item();
+    private static ItemsDao itemsDao;
+    private Item newItem = new Item();
     private Random random = new Random();
     private String filePath = "";
-
+    //получили путь для загрузки из web.xml
     public void init() {
-
         filePath = getServletContext().getInitParameter("file-upload");
     }
 
@@ -31,7 +30,8 @@ public class EditItem extends HttpServlet {
                        HttpServletResponse response)
             throws ServletException, java.io.IOException {
 
-        impl = new ItemsDaoImpl();
+        itemsDao = new ItemsDaoImpl();
+        //чекаем, запрос мультипартовый или нет
         boolean isMultipart = ServletFileUpload.isMultipartContent(request);
         if (!isMultipart) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST);
@@ -40,24 +40,24 @@ public class EditItem extends HttpServlet {
 
         DiskFileItemFactory factory = new DiskFileItemFactory();
         factory.setSizeThreshold(1024 * 1024);
-
+        //вот тут по идее дожна быть временная директория
         File tempDir = (File) getServletContext().getAttribute("javax.servlet.context.tempdir");
         factory.setRepository(tempDir);
 
         ServletFileUpload upload = new ServletFileUpload(factory);
-
         upload.setSizeMax(1024 * 1024 * 10);
-
+        //парсим реквест!
         try {
             List items = upload.parseRequest(request);
             Iterator iter = items.iterator();
 
             while (iter.hasNext()) {
                 FileItem item = (FileItem) iter.next();
-
+                //если обычное поле формы
                 if (item.isFormField()) {
                     processFormField(item);
-                } else {
+
+                } else {//если файл
                     processUploadedFile(item);
                 }
             }
@@ -66,12 +66,15 @@ public class EditItem extends HttpServlet {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             return;
         }
-        impl.update(newItem);
+
+        //создали объект, здесь собственно и обновляем через дао
+        itemsDao.update(newItem);
         request.setAttribute("Message", "Товар изменен!");
         getServletConfig().getServletContext().getRequestDispatcher("/editItem.ftl").forward(request, response);
     }
 
     private void processUploadedFile(FileItem item) throws Exception {
+        //ну получили файл, обрабатываем, ссылку пихаем в поле объекта товара
         File uploadedFile;
         int randName = random.nextInt();
         do {
@@ -86,10 +89,12 @@ public class EditItem extends HttpServlet {
     }
 
     private void processFormField(FileItem item) {
+        //парсим все поля, добавляем в новый объект(айди получаем в запросе уже существующего,
+        // поэтому потом просто обновляем объект через ДАО)
         if (item.getFieldName().equals("id")) {
             Long id = Long.parseLong(item.getString());
 
-            newItem = impl.findByPrimaryKey(id);
+            newItem = itemsDao.findByPrimaryKey(id);
         }
         if (item.getFieldName().equals("name")) {
             newItem.setName(item.getString());

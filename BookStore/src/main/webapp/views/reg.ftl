@@ -1,17 +1,17 @@
 <#include "menuTemplate.ftl">
 <#macro content>
-    <#if pswFormat??>
+    <#if errorPswFormat??>
     <h3>Неверный формат пароля (Пароль должен содержать не менее 6 символов)</h3>
     </#if>
 
-    <#if emailFormat??>
+    <#if errorEmailFormat??>
     <h3>Неверныый формат email</h3>
     </#if>
-    <#if errorEmail??>
+    <#if errorEmailExist??>
     <h3>Такой email уже существует</h3>
     </#if>
 
-    <#if errorLogin??>
+    <#if errorLoginExist??>
     <h3> Такой логин уже существует</h3>
     </#if>
 <div id="login-form">

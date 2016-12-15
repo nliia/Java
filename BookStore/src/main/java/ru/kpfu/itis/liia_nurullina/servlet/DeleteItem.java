@@ -22,14 +22,15 @@ public class DeleteItem extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Long id = Long.parseLong(req.getParameter("id"));
-        ItemsDao impl = new ItemsDaoImpl();
-
+        ItemsDao implItems = new ItemsDaoImpl();
         CommentsDao implCom = new CommentsDaoImpl();
+        //удаляем все комменты данного товара из бд
         ArrayList<Comment> comments = (ArrayList<Comment>) implCom.findByItemId(id);
         for (Comment com : comments) {
             implCom.delete(com.getComment_id());
         }
-        impl.delete(id);
+        //удаляем сам товар
+        implItems.delete(id);
         resp.sendRedirect("/");
     }
 }

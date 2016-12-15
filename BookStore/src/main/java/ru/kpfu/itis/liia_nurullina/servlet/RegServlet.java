@@ -17,15 +17,19 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RegServlet extends HttpServlet {
-
+    private static final String EMAIL_PATTERN = "^([a-z0-9_-]+\\.)*[a-z0-9_-]+@[a-z0-9_-]+(\\.[a-z0-9_-]+)*\\.[a-z]{2,6}$";
+    private static final String PASSWORD_PATTERN = "^[a-z0-9_-]{6,18}$";
+    private static final String SALT = "QxLUF1bgIAdeQX";
+    //проверяем формат мэилла
     private static boolean checkEmail(String email) {
-        Pattern p = Pattern.compile("^([a-z0-9_-]+\\.)*[a-z0-9_-]+@[a-z0-9_-]+(\\.[a-z0-9_-]+)*\\.[a-z]{2,6}$");
+        Pattern p = Pattern.compile(EMAIL_PATTERN);
         Matcher m = p.matcher(email);
         return m.matches();
     }
 
+    //проверяем формат пароля
     private static boolean checkPassword(String psw) {
-        Pattern p = Pattern.compile("^[a-z0-9_-]{6,18}$");
+        Pattern p = Pattern.compile(PASSWORD_PATTERN);
         Matcher m = p.matcher(psw);
         return m.matches();
     }
@@ -40,10 +44,12 @@ public class RegServlet extends HttpServlet {
         String login = req.getParameter("login");
         String psw = req.getParameter("password");
         String email = req.getParameter("email");
-        boolean errorLogin = false;
-        boolean errorEmail = false;
-        boolean emailFormat = false;
-        boolean pswFormat = false;
+        boolean errorLoginExist = false;
+        boolean errorEmailExist = false;
+        boolean errorEmailFormat = false;
+        boolean errorPswFormat = false;
+        //если все ок, то смотрим, нет ли уже такого пользователя
+        //если есть, то ставим ошибку
         if (checkEmail(email) && checkPassword(psw)) {
             UsersDao impl = new UsersDaoImpl();
             ArrayList<User> userList = (ArrayList<User>) impl.findAll();
@@ -51,17 +57,17 @@ public class RegServlet extends HttpServlet {
             if (!userList.isEmpty()) {
                 for (User user : userList) {
                     if (user.getLogin().equals(login)) {
-                        errorLogin = true;
+                        errorLoginExist = true;
                     }
                     if (user.getEmail().equals(email)) {
-                        errorEmail = true;
+                        errorEmailExist = true;
                     }
                 }
             }
-
-            if (!errorEmail && !errorLogin) {
+            //если пользователя не существует, то создаем, заодно создаем куки и сессию
+            if (!errorEmailExist && !errorLoginExist) {
                 User newUser = new User();
-                newUser.setPassword(DigestUtils.md5Hex(psw + "QxLUF1bgIAdeQX"));
+                newUser.setPassword(DigestUtils.md5Hex(psw + SALT));
                 newUser.setLogin(login);
                 newUser.setEmail(email);
                 impl.add(newUser);
@@ -78,17 +84,18 @@ public class RegServlet extends HttpServlet {
                 RequestDispatcher requestDispatcher = req.getRequestDispatcher("/profile.ftl");
                 requestDispatcher.forward(req, resp);
             } else {
-                req.setAttribute("errorEmail", errorEmail);
-                req.setAttribute("errorLogin", errorLogin);
+                req.setAttribute("errorEmailExist", errorEmailExist);
+                req.setAttribute("errorLoginExist", errorLoginExist);
                 getServletConfig().getServletContext().getRequestDispatcher("/reg.ftl").forward(req, resp);
             }
         } else {
+            //иначе если формат не верный, то кидаем ошибку на страницу
             if (!checkEmail(email))
-                emailFormat = true;
+                errorEmailFormat = true;
             if (!checkPassword(psw))
-                pswFormat = true;
-            req.setAttribute("emailFormat", emailFormat);
-            req.setAttribute("pswFormat", pswFormat);
+                errorPswFormat = true;
+            req.setAttribute("errorEmailFormat", errorEmailFormat);
+            req.setAttribute("errorPswFormat", errorPswFormat);
             getServletConfig().getServletContext().getRequestDispatcher("/reg.ftl").forward(req, resp);
         }
     }

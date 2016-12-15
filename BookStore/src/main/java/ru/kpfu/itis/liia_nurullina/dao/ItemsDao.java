@@ -21,4 +21,6 @@ public interface ItemsDao {
     List<Item> viewAllItems(int offset, int noOfRecords);
 
     List<Item> viewItemsByGenre(int offset, int noOfRecords, String genre);
+
+    int size();
 }

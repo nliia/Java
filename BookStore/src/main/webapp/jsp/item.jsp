@@ -60,7 +60,7 @@
         <form action="/addComment" method="post">
             <script>
                 $(document).ready(function () {
-                    var maxCount = 2000;
+                    var maxCount = 300;
 
                     $("#counter").html(maxCount);
 
@@ -77,7 +77,6 @@
                         else {
                             $("#counter").html(cnt);
                         }
-
                     });
                 });
             </script>
@@ -96,13 +95,12 @@
 
 <c:choose>
     <c:when test="${not empty comments}">
-        <c:forEach items="${comments}" var="item">
+        <c:forEach items="${comments}" var="comment">
             <div class="comment">
                 <h3>
-                        ${item.login}
-                        <%--<c:if test="${item.date}!=null"> ${item.date}</c:if>--%>
-                        ${item.date}
-                        ${item.text}
+                        ${comment.login}
+                        ${comment.date}
+                        ${comment.text}
                 </h3>
             </div>
         </c:forEach>

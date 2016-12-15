@@ -6,7 +6,7 @@ public class Comment {
     private Long comment_id;
     private Long user_id;
     private Long item_id;
-    private Timestamp date;
+    private String date;
     private String text;
     private String login;
 
@@ -42,11 +42,11 @@ public class Comment {
         this.item_id = item_id;
     }
 
-    public Timestamp getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Timestamp date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

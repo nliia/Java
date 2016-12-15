@@ -13,13 +13,15 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class LoginServlet extends HttpServlet {
+    private static final String SALT = "QxLUF1bgIAdeQX";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         Cookie[] cookies = req.getCookies();
         String username = null;
-        String remember = "false;";
+        Boolean remember = false;
+        //чекаем куки, если они есть, то авторизуем
         if (cookies != null) {
             for (int i = 0; i < cookies.length; i++) {
                 if (cookies[i].getName().equals("cookuser")) {
@@ -27,16 +29,17 @@ public class LoginServlet extends HttpServlet {
                 }
 
                 if (cookies[i].getName().equals("cookrem")) {
-                    remember = cookies[i].getValue();
+                    remember = Boolean.valueOf(cookies[i].getValue());
                 }
             }
-            if (remember.equals("true")) {
+            //если галочка была поставлена, то сразу создаем сессию и не надо ему логиниться
+            if (remember) {
                 req.getSession().setAttribute("session_uname", username);
                 req.setAttribute("username", username);
                 getServletConfig().getServletContext().getRequestDispatcher("/profile.ftl").forward(req, resp);
             }
         }
-
+        //если куки нет, кидает на страницу авторизации
         getServletConfig().getServletContext().getRequestDispatcher("/login.ftl").forward(req, resp);
 
 
@@ -46,16 +49,16 @@ public class LoginServlet extends HttpServlet {
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("username");
         String psw = req.getParameter("password");
-        String hash = DigestUtils.md5Hex(psw + "QxLUF1bgIAdeQX");
+        String hash = DigestUtils.md5Hex(psw + SALT);
         boolean isUserExists = false;
         UsersDao impl = new UsersDaoImpl();
         User user = impl.findByLogin(username);
-
+        //чекаем, существует такой пользователь или нет
         if (user != null && user.getPassword().equals(hash)) {
             isUserExists = true;
         }
+        //если существует, то авторизуем
         if (isUserExists) {
-
             if (req.getParameter("remember") != null) {
                 String remember = req.getParameter("remember");
                 Cookie cUserName = new Cookie("cookuser", username);
@@ -69,9 +72,8 @@ public class LoginServlet extends HttpServlet {
             req.getSession().setAttribute("session_uname", username);
             req.setAttribute("username", username);
             resp.sendRedirect("/profile");
-//            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/profile");
-//            requestDispatcher.forward(req, resp);
         } else {
+            //если не существует, то беда
             req.setAttribute("error", true);
             getServletConfig().getServletContext().getRequestDispatcher("/login.ftl").forward(req, resp);
         }

@@ -18,13 +18,17 @@ public class DeleteFromCart extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
+        //нашли товар по айди
         ItemsDao impl = new ItemsDaoImpl();
         Item newItem = impl.findByPrimaryKey(Long.parseLong(id));
+        //получаем сумму заказа и уменьшаем ее
         HttpSession session = req.getSession(true);
         int cost = (int) session.getAttribute("cost");
         cost -= newItem.getPrice();
+        //получаем всю корзину из сессии и удаляем оттуда товар
         ArrayList cart = (ArrayList) session.getAttribute("cart");
         cart.remove(newItem);
+        //кидаем на страницу обновленные корзину и стоимость
         req.getSession().setAttribute("cost", cost);
         req.getSession().setAttribute("cart", cart);
         getServletConfig().getServletContext().getRequestDispatcher("/jsp/cart.jsp").forward(req, resp);

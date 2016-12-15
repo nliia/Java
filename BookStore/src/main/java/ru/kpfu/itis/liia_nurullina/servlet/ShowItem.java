@@ -14,23 +14,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-
+//страница товара
 public class ShowItem extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+       //получаем айди, находим товар и его комменты
         Long id = Long.parseLong(req.getParameter("id"));
-        ItemsDao impl = new ItemsDaoImpl();
-        Item item = impl.findByPrimaryKey(id);
+        ItemsDao itemsDao = new ItemsDaoImpl();
+        Item item = itemsDao.findByPrimaryKey(id);
         CommentsDao implComm = new CommentsDaoImpl();
         ArrayList<Comment> comments = (ArrayList) implComm.findByItemId(id);
-        if (comments != null)
-            Collections.sort(comments, (o1, o2) -> {
-                if (o1.getDate().after(o2.getDate()))
-                    return -1;
-                if (o1.getDate().before(o2.getDate()))
-                    return 1;
-                return 0;
-            });
         req.setAttribute("item", item);
         req.setAttribute("comments", comments);
         getServletConfig().getServletContext().getRequestDispatcher("/jsp/item.jsp").forward(req, resp);

@@ -43,18 +43,16 @@
         </div>
     </div>
 </div>
+
 <form action="/" method="get"></form>
-<select name="hero" id="genre" onchange="func()">
+<select id="genre">
     <option selected>Выберите жанр</option>
     <option value="fantasy">Фэнтэзи</option>
     <option value="comedy">Комедия</option>
     <option value="detective">Детектив</option>
     <option value="drama">Драма</option>
 </select>
-<%--<input type="submit" value="Применить" onclick="func()">--%>
-<div id="res">
-    <p>Results</p>
-</div>
+<input type="submit" value="Применить">
 
 <c:choose>
     <c:when test="${not empty products}">
@@ -78,10 +76,11 @@
                 </a>
             </c:if>
 
-            <form action="/bucket" method="post">
-                <button type="submit" name="id" value="${item.id}" onclick="alert('Добавлено!')">Добавить в корзину
-                </button>
+            <form id="addToCartForm" action="/bucket" method="post">
+                <input type="hidden" name="id" value="${item.id}"/>
+                <input type="submit" name="submit" class="submit" value="Добавить в корзину"/>
             </form>
+
         </c:forEach>
 
         <c:if test="${currentPage != 1}">
@@ -112,37 +111,18 @@
     </c:otherwise>
 </c:choose>
 
+<%--добавление в корзину--%>
+<script>
+    $(document).on("submit", "#addToCartForm", function (event) {
+        var $form = $(this);
 
-<script type="application/javascript">
-    var func = function () {
-        $.ajax({
-            'contentType': 'application/javascript; charset=utf-8',
-            'url': '/search',
-            'data': {
-                'genre': $("#genre").val()
-            },
-            'type': 'get',
-            'success': function (obj) {
-                var data = obj.result;
-                var htmlText = "";
-                for (var key in data) {
+        $.post($form.attr("action"), $form.serialize(), function (response) {
+            //
+        });
 
-                    htmlText += "<a class=\"row\" href=\"/item?id=" + data[key].id + "\">";
-                    htmlText += "<p>" + data[key].name + "</p>";
-                    htmlText += "</a>";
-
-                }
-                $("#res").html(htmlText);
-            }
-        })
-    }
-
-    $(document).ready()
-    {
-        func();
-    }
+        event.preventDefault(); // не дает форме стандартно отработать с перегрузкой страницы
+    });
 </script>
-
 
 </body>
 </html>
