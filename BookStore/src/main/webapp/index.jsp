@@ -6,6 +6,7 @@
     <link href="css/simplePagination.css" rel="stylesheet" type="text/css"/>
     <title>BookStore</title>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script src="../js/addToCart.js"></script>
 </head>
 <body>
 <div id="top_bar_black">
@@ -72,6 +73,7 @@
                             onclick="return confirm('Вы уверены, что хотите удалить?')">Удалить
                     </button>
                 </form>
+
                 <a href="/editItem?id=${item.id}">
                     <div>Изменить товар</div>
                 </a>
@@ -112,19 +114,6 @@
         <h3>Товары пока не добавлены</h3>
     </c:otherwise>
 </c:choose>
-
-<%--добавление в корзину--%>
-<script>
-    $(document).on("submit", "#addToCartForm", function (event) {
-        var $form = $(this);
-
-        $.post($form.attr("action"), $form.serialize(), function (response) {
-            //
-        });
-
-        event.preventDefault(); // не дает форме стандартно отработать с перегрузкой страницы
-    });
-</script>
 
 </body>
 </html>

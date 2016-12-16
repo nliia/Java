@@ -34,7 +34,7 @@ public class Bucket extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(true);
-        newCost = 0;
+        int newCost = 0;
         cost = session.getAttribute("cost");
         String id = req.getParameter("id");
         //по айди находим товар в бд

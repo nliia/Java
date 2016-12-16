@@ -6,6 +6,8 @@
     <link type="text/css" rel="stylesheet" href="css/simplePagination.css"/>
     <title>BookStore</title>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script src="../js/addToCart.js"></script>
+    <script src="../js/countCharacters.js"></script>
 </head>
 <body>
 <div id="top_bar_black">
@@ -49,49 +51,28 @@
 <h2>${item.description}</h2><br>
 <h2>${item.price} рублей</h2><br>
 <center>
-    <form action="/bucket" method="post">
-        <button type="submit" name="id" value="${item.id}" onclick="alert('Добавлено!')">Добавить в корзину
-        </button>
+    <form id="addToCartForm" action="/bucket" method="post">
+        <input type="hidden" name="id" value="${item.id}"/>
+        <input type="submit" name="submit" class="submit" value="Добавить в корзину"
+               onclick="this.value='Добавлено'"/>
     </form>
+    <h3>Комментарии пользователей:</h3>
+    <c:choose>
+        <c:when test="${sessionScope.session_uname != null}">
+            <form action="/addComment" method="post">
+                <input type="text" class="input" id="comment1" name="comment" oninput="ready()"
+                       placeholder="Ваш комментарий" required>
+                <input type="hidden" value="${sessionScope.session_uname}" name="username">
+                <input type="hidden" value="${item.id}" name="item_id">
+                <div class="counter">Осталось символов: <span id="counter"></span></div>
+                <input type="submit" class="submit" value="Добавить">
+            </form>
+        </c:when>
+        <c:otherwise>
+            Авторизуйтесь, чтобы добавить комментарий
+        </c:otherwise>
+    </c:choose>
 </center>
-<h3>Комментарии пользователей:</h3>
-<c:choose>
-    <c:when test="${sessionScope.session_uname != null}">
-        <form action="/addComment" method="post">
-            <script>
-                $(document).ready(function () {
-                    var maxCount = 300;
-
-                    $("#counter").html(maxCount);
-
-                    $("#comment1").keyup(function () {
-                        var revText = this.value.length;
-
-                        if (this.value.length > maxCount) {
-                            this.value = this.value.substr(0, maxCount);
-                        }
-                        var cnt = (maxCount - revText);
-                        if (cnt <= 0) {
-                            $("#counter").html('0');
-                        }
-                        else {
-                            $("#counter").html(cnt);
-                        }
-                    });
-                });
-            </script>
-            <input type="text" class="input" id="comment1" name="comment" oninput="ready()"
-                   placeholder="Ваш комментарий" required>
-            <input type="hidden" value="${sessionScope.session_uname}" name="username">
-            <input type="hidden" value="${item.id}" name="item_id">
-            <div class="counter">Осталось символов: <span id="counter"></span></div>
-            <input type="submit" class="submit" value="Добавить">
-        </form>
-    </c:when>
-    <c:otherwise>
-        Авторизуйтесь, чтобы добавить комментарий
-    </c:otherwise>
-</c:choose>
 
 <c:choose>
     <c:when test="${not empty comments}">

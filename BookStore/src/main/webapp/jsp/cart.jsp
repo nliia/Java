@@ -44,7 +44,11 @@
 <c:choose>
     <c:when test="${not empty cart}">
         <c:forEach items="${cart}" var="item">
-            ${item.name}<br>
+            <form action="/item" method="get">
+                <input type="hidden" name="id" value="${item.id}"/>
+                <a><input type="submit" class="itemName" value="${item.name}"></a>
+            </form>
+            <br>
             ${item.price}<br>
             <img src=/images/${item.picture} width="100" height="100" alt="${item.picture}">
             <form action="/deleteCart" method="post">
