@@ -44,15 +44,16 @@
     </div>
 </div>
 
-<form action="/" method="get"></form>
-<select name="genre">
-    <option value="%" selected>Выберите жанр</option>
-    <option value="fantasy">Фэнтэзи</option>
-    <option value="comedy">Комедия</option>
-    <option value="detective">Детектив</option>
-    <option value="drama">Драма</option>
-</select>
-<input type="submit" value="Применить">
+<form action="/" method="get">
+    <select name="genre">
+        <option value="%" selected>Выберите жанр</option>
+        <option value="fantasy">Фэнтэзи</option>
+        <option value="comedy">Комедия</option>
+        <option value="detective">Детектив</option>
+        <option value="drama">Драма</option>
+    </select>
+    <input type="submit" value="Применить">
+</form>
 
 <c:choose>
     <c:when test="${not empty products}">

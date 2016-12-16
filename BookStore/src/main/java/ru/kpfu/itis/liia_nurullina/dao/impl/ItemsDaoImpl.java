@@ -137,16 +137,13 @@ public class ItemsDaoImpl extends JDBCTemplate implements ItemsDao {
 
     @Override
     public List<Item> viewItemsByGenre(int offset, int noOfRecords, String genre) {
-        String query = "select * from items WHERE genre like ? order by price limit " + noOfRecords + " offset" + offset + "";
-//        String query = "select * from items WHERE genre like ? order by price ";
+        String query = "select * from items WHERE genre like ? order by price limit " + noOfRecords + " offset " + offset + "";
         List<Item> list = new ArrayList<>();
         Item item;
         try {
             con = getConnection();
             ptmt = con.prepareStatement(query);
             ptmt.setString(1, genre);
-//            ptmt.setInt(2, noOfRecords);
-//            ptmt.setInt(3, offset);
             rs = ptmt.executeQuery();
 
             while (rs.next()) {
