@@ -5,6 +5,7 @@ import ru.kpfu.itis.liia_nurullina.dao.UsersDao;
 import ru.kpfu.itis.liia_nurullina.dao.impl.UsersDaoImpl;
 import ru.kpfu.itis.liia_nurullina.model.User;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -16,7 +17,7 @@ public class LoginServlet extends HttpServlet {
     private static final String SALT = "QxLUF1bgIAdeQX";
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         Cookie[] cookies = req.getCookies();
         String username = null;
@@ -40,8 +41,8 @@ public class LoginServlet extends HttpServlet {
             }
         }
         //если куки нет, кидает на страницу авторизации
-        getServletConfig().getServletContext().getRequestDispatcher("/login.ftl").forward(req, resp);
-
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/login.ftl");
+        requestDispatcher.forward(req, resp);
 
     }
 
