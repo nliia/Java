@@ -156,13 +156,13 @@ button, .submit {
     text-decoration: none;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    /*color:#FFFFFF;*/
-    font-family: Verdana, Arial, Helvetica, sans-serif;
+/*h1, h2, h3, h4, h5, h6 {
+  /*  /*color:#FFFFFF;*/
+   /* font-family: Verdana, Arial, Helvetica, sans-serif;
     font-size: 12px;
     text-align: center;
     text-decoration: none;
-}
+}*/
 
 .input {
     border: 1px solid #292829;
@@ -172,13 +172,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .itemName {
-    font-family: Verdana, Arial, Helvetica, sans-serif;
-    font-size: 18px;
-    text-align: center;
+    font-family: Segoe UI, Arial, Helvetica, sans-serif;
+    font-size: 25px;
+    /*text-align: center;*/
     background: none;
     border: none;
     color: black;
-    text-decoration: underline;
+   /* text-decoration: underline;*/
     cursor: pointer;
 }
 
@@ -190,4 +190,52 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 12px;
     border-radius: 4px;
     box-shadow: 2px 2px 2px #999;
+}
+
+.image {
+    margin: 0 0 5px 0;
+}
+
+.cost {
+    font-family: Segoe UI, serif;
+    font-size: 15px;
+}
+
+div#item {
+    background-color: #f5f5f5;
+    margin: 0 3px 3px 0;
+}
+h3,h2 {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    text-align: center;
+    text-decoration: none;
+}
+
+div#itemContainer {
+    margin: 10px 0 0 0;
+}
+
+input.btn.btn-info {
+    margin: 5px 0 0 0;
+
+}
+/*input#add {
+    background-color: #597da3;
+}*/
+
+input#Apply {
+    background-color: #305075;
+}
+
+#add {
+    background-color: #597da3;
+}
+#center {
+    text-align: left;
+    margin: 10px 0 0 90px;
+    padding: 5px 0 0 5px;
+}
+select#margin {
+    margin: 3px 0 0 0;
 }

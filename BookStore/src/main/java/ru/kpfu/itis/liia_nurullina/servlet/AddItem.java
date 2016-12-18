@@ -67,7 +67,7 @@ public class AddItem extends HttpServlet {
         }
         ItemsDao impl = new ItemsDaoImpl();
         impl.add(newItem);
-        request.setAttribute("Message", "Товар добавлен!");
+        request.setAttribute("Message", "Product Added!");
         getServletConfig().getServletContext().getRequestDispatcher("/addItem.ftl").forward(request, response);
     }
 
