@@ -51,7 +51,7 @@
         <div class="container">
             <div class="row">
                 <c:forEach items="${cart}" var="item">
-                    <div class="col-md-2">
+                    <div class="col-md-4">
                         <form action="/item" method="get">
                             <input type="hidden" name="id" value="${item.id}"/>
                             <a><input type="submit" class="itemName" value="${item.name}"></a>
