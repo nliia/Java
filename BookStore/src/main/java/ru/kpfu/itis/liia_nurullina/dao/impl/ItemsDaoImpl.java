@@ -66,28 +66,6 @@ public class ItemsDaoImpl extends JDBCTemplate implements ItemsDao {
         } finally {
             closeResources();
         }
-
-    }
-
-    public List findAll() {
-        List items = new ArrayList();
-        Item item;
-        try {
-            String querystring = "SELECT * FROM items";
-            con = getConnection();
-            ptmt = con.prepareStatement(querystring);
-            rs = ptmt.executeQuery();
-            while (rs.next()) {
-                item = new Item();
-                addFieldsToItem(item);
-                items.add(item);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            closeResources();
-        }
-        return items;
     }
 
     public Item findByPrimaryKey(Long id) {

@@ -7,9 +7,9 @@ import java.sql.SQLException;
 public class ConnectionFactory {
     private static ConnectionFactory connectionFactory = null;
     private final String driverClassName = "org.postgresql.Driver";
-    private final String connectionUrl = "jdbc:postgresql://localhost:5432/postgres";
+    private final String connectionUrl = "jdbc:postgresql://localhost:5432/online_store";
     private final String dbUser = "postgres";
-    private final String dbPwd = "admin";
+    private final String dbPwd = "postgres";
 
     public ConnectionFactory() {
         try {

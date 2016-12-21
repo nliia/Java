@@ -9,8 +9,6 @@ public interface CommentsDao {
 
     void delete(Long id);
 
-    List findAll();
-
     Comment findByPrimaryKey(Long id);
 
     List findByItemId(Long id);

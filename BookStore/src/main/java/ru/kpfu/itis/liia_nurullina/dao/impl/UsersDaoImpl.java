@@ -47,22 +47,6 @@ public class UsersDaoImpl extends JDBCTemplate implements UsersDao {
         }
     }
 
-    public void delete(Long id) {
-        try {
-            String querystring = "DELETE FROM users WHERE user_id =?";
-            con = getConnection();
-            ptmt = con.prepareStatement(querystring);
-            ptmt.setLong(1, id);
-            ptmt.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            closeResources();
-        }
-
-    }
-
     public List findAll() {
         List users = new ArrayList();
         User user;

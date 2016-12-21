@@ -10,8 +10,6 @@ public interface UsersDao {
 
     void update(User user);
 
-    void delete(Long id);
-
     List findAll();
 
     User findByPrimaryKey(Long id);

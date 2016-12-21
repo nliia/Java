@@ -14,8 +14,6 @@ public interface ItemsDao {
 
     void delete(Long id);
 
-    List findAll();
-
     Item findByPrimaryKey(Long id);
 
     List<Item> viewAllItems(int offset, int noOfRecords);

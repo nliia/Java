@@ -51,27 +51,6 @@ public class CommentsDaoImpl extends JDBCTemplate implements CommentsDao {
 
     }
 
-    public List findAll() {
-        List comments = new ArrayList();
-        Comment comment;
-        try {
-            String querystring = "SELECT * FROM comments";
-            con = getConnection();
-            ptmt = con.prepareStatement(querystring);
-            rs = ptmt.executeQuery();
-            while (rs.next()) {
-                comment = new Comment();
-                setFields(comment);
-                comments.add(comment);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            closeResources();
-        }
-        return comments;
-    }
-
     public Comment findByPrimaryKey(Long id) {
         Comment comment = null;
         try {
