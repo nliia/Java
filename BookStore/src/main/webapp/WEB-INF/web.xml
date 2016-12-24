@@ -8,9 +8,7 @@
         <description>Location to store uploaded file</description>
         <param-name>file-upload</param-name>
         <param-value>
-            C:\Users\Liia\IdeaProjects\semestrProjects\BookStore\src\main\webapp\images
-            <!--C:\Users\dns-pc\desktop\java\BookStore\src\main\webapp\images\-->
-            <!--C:\Java\BookStore\src\main\webapp\images\-->
+            C:\Users\Liia\IdeaProjects\semestrProjects\BookStore\src\main\webapp\images\
         </param-value>
     </context-param>
 
