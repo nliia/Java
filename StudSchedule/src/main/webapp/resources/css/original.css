@@ -1,0 +1,12 @@
+* {
+    margin: 5px;
+    padding: 5px;
+}
+
+.form-control{
+    width: 25%;
+}
+
+.btn-info{
+    width: 50px;
+}
