@@ -7,7 +7,9 @@
 </head>
 <body>
 <a href="/sign_in">Sign in</a>
-
+<#if error ??>
+<h5>${error}</h5>
+</#if>
 <@sf.form action="/sign_up" method="post" modelAttribute="user">
 <fieldset>
     <div class="field">
@@ -22,7 +24,7 @@
     </div>
 
     <div>
-        <input type="submit" value="Sign up">
+        <input type="submit" value="Sign up" class="btn-info">
     </div>
 </fieldset>
 </@sf.form>

@@ -13,23 +13,28 @@
 
 <body>
 
-<@security.authorize  access="hasRole('ADMIN')">
+<@security.authorize access="hasAnyRole('ADMIN', 'USER')">
 <ul class="nav nav-tabs">
     <li>
         <a href="/">Main</a>
     </li>
+    <@security.authorize  access="hasRole('ADMIN')">
+
+        <li>
+            <a href="/newcat">Add new categories</a>
+        </li>
+        <li>
+            <a href="/newschedule">Add schedule</a>
+        </li>
+        <li>
+            <a href="/deletecat">Delete categories</a>
+        </li>
+    </@security.authorize>
     <li>
-        <a href="/newcat">Add new categories</a>
-    </li>
-    <li>
-        <a href="/newschedule">Add schedule</a>
-    </li>
-    <li>
-        <a href="/deletecat">Delete categories</a>
+        <a href="/logout">Logout</a>
     </li>
 </ul>
 </@security.authorize>
-
 <div class="fieldset">
 
     <h4><label>Add high school:</label></h4>

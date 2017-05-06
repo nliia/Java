@@ -53,10 +53,18 @@ public class AuthController {
                          BindingResult bindingResult,
                          Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("user", new UserForm());
+            model.addAttribute("error", "Error");
+            return "sign_up";
+        }
+        if (userService.getByEmail(userForm.getEmail()) != null) {
+            model.addAttribute("user", new UserForm());
+            model.addAttribute("error", "User with this email already exists!");
             return "sign_up";
         }
         userService.add(transformer.apply(userForm));
         model.addAttribute("afterSignUp", "true");
+        model.addAttribute("authForm", new AuthForm());
         return "sign_in";
     }
 
