@@ -67,6 +67,10 @@
     <input type="submit" value="Delete" class="btn-danger">
 </form>
 
+<#if RequestParameters.successGroup ??>
+<h5>${RequestParameters.successGroup}</h5>
+</#if>
+
 <h4><label>Group</label></h4>
 <form action="/deleteGroup" method="post">
     <select class="form-control" name="groupId" id="groupcat">
@@ -74,9 +78,14 @@
     </select>
     <input type="submit" value="Delete" class="btn-danger">
 </form>
+
+<#if RequestParameters.successSchedule ??>
+<h5>${RequestParameters.successSchedule}</h5>
+</#if>
+
 <label><h4>Delete schedule of this group:</h4></label>
 <form action="/deleteSchedule" method="post">
-    <select class="form-control" name="groupId" id="groupcat">
+    <select class="form-control" name="groupId" id="groupcat2">
         <option selected>Select group</option>
     </select>
     <input type="submit" value="Deleteschedule" class="btn-danger">
@@ -133,28 +142,10 @@
                         });
 
                         $('#groupcat').html(div_data);
+                        $('#groupcat2').html(div_data);
                     }
                 });
             });
-
-    $('#groupcat').change(
-            function () {
-                $.ajax({
-                    type: "GET",
-                    url: "schedule",
-                    data: {depId: $('#departmentcat').val()},
-
-                    success: function (data) {
-                        var div_data = " <option selected>Select group</option>";
-                        $.each(data, function (i, obj) {
-                            div_data += "<option value=" + obj.id + ">" + obj.number + "</option>";
-                        });
-
-                        $('#groupcat').html(div_data);
-                    }
-                });
-            });
-
 
 </script>
 

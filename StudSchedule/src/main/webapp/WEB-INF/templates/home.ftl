@@ -96,18 +96,22 @@
     <tr>
         <th>Tuesday</th>
     <#if tuesday ?? && tuesday?size != 0>
-        <#list tuesday as m>
-            <#if m.time == '8.30'>
-                <td>${m.subjectName}</td></#if>
-            <#if m.time == '10.10'>
-                <td>${m.subjectName}</td></#if>
-            <#if m.time == '11.50'>
-                <td>${m.subjectName}</td>
-            </#if>
-            <#if m.time == '13.35'>
-                <td>${m.subjectName}</td>
-            </#if>
-        </#list>
+        <#if tuesday[0] ??>
+            <td>${tuesday[0]}</td>
+            <else>-</else>
+        </#if>
+        <#if tuesday[1] ??>
+            <td>${tuesday[1]}</td>
+            <else>-</else>
+        </#if>
+        <#if tuesday[2] ??>
+            <td>${tuesday[2]}</td>
+            <else>-</else>
+        </#if>
+        <#if tuesday[3] ??>
+            <td>${tuesday[3]}</td>
+            <else>-</else>
+        </#if>
     <#else>
         <td>-</td>
         <td>-</td>
@@ -118,7 +122,7 @@
 
     <tr>
         <th>Wednesday</th>
-    <#if wednesday ??>
+    <#if wednesday ?? && wednesday?size != 0>
         <#list wednesday as m>
             <#if m.time == '8.30'>
                 <td>${m.subjectName}</td></#if>
@@ -141,7 +145,7 @@
 
     <tr>
         <th>Thursday</th>
-    <#if thursday ??>
+    <#if thursday ?? && thursday?size != 0>
         <#list thursday as m>
             <#if m.time == '8.30'>
                 <td>${m.subjectName}</td></#if>
@@ -164,7 +168,7 @@
 
     <tr>
         <th>Friday</th>
-    <#if friday ??>
+    <#if friday ?? && friday?size != 0>
         <#list friday as m>
             <#if m.time == '8.30'>
                 <td>${m.subjectName}</td></#if>

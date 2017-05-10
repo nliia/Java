@@ -19,7 +19,7 @@ public class Department {
     private Long id;
 
     @JoinColumn(name = "high_school_id")
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     private HighSchool highSchool;
 
     private String name;

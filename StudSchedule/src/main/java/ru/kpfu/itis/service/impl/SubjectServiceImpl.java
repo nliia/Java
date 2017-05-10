@@ -59,20 +59,12 @@ public class SubjectServiceImpl implements SubjectService {
             }
         }
 
-
-        Collections.sort(monday, (object1, object2) -> object1.getTime().compareTo(object2.getTime()));
-        Collections.sort(tuesday, (object1, object2) -> object1.getTime().compareTo(object2.getTime()));
-        Collections.sort(wednesday, (object1, object2) -> object1.getTime().compareTo(object2.getTime()));
-        Collections.sort(thursday, (object1, object2) -> object1.getTime().compareTo(object2.getTime()));
-        Collections.sort(friday, (object1, object2) -> object1.getTime().compareTo(object2.getTime()));
-
         List<List> week = new ArrayList<>();
         week.add(monday);
         week.add(tuesday);
         week.add(wednesday);
         week.add(thursday);
         week.add(friday);
-
 
         return week;
     }

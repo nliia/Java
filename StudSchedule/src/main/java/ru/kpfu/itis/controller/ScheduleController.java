@@ -62,7 +62,7 @@ public class ScheduleController {
     public String deleteSchedule(@RequestParam("groupId") Long groupId,
                                  Model model) {
         subjectService.deleteByGroupId(groupId);
-        model.addAttribute("successGroup", SUCCESS_DELETE_MESSAGE);
+        model.addAttribute("successSchedule", SUCCESS_DELETE_MESSAGE);
 
         return "redirect: /deletecat";
     }

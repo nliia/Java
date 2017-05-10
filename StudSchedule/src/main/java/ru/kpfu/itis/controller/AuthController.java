@@ -54,7 +54,7 @@ public class AuthController {
                          Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("user", new UserForm());
-            model.addAttribute("error", "Error");
+            model.addAttribute("error", "Password too short(from 7 to 20 symbols) or email is incorrect");
             return "sign_up";
         }
         if (userService.getByEmail(userForm.getEmail()) != null) {
