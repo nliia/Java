@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<GridPane alignment="center" hgap="10" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.kpfu.itis.controller.AuthController">
+   <columnConstraints>
+      <ColumnConstraints />
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+   <children>
+      <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <children>
+            <TextField fx:id="login" layoutX="48.0" layoutY="118.0" prefHeight="37.0" prefWidth="184.0" promptText="enter login" />
+            <TextField fx:id="password" layoutX="48.0" layoutY="164.0" prefHeight="37.0" prefWidth="184.0" promptText="enter password" />
+            <Text layoutX="56.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign in">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Button layoutX="169.0" layoutY="244.0" mnemonicParsing="false" onAction="#login" prefWidth="60.0" text="Sign in" />
+            <Label fx:id="header" layoutX="48.0" layoutY="24.0" prefHeight="54.0" prefWidth="218.0" text=" " />
+            <Button layoutX="48.0" layoutY="244.0" mnemonicParsing="false" onAction="#showSignUp" text="Go to sign up" />
+         </children></AnchorPane>
+   </children>
+</GridPane>
