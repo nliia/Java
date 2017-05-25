@@ -8,8 +8,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
+import ru.kpfu.itis.controller.AddBookingController;
+import ru.kpfu.itis.controller.EditBookingController;
 import ru.kpfu.itis.controller.MainController;
 import ru.kpfu.itis.controller.EditCottageController;
+import ru.kpfu.itis.model.Booking;
 import ru.kpfu.itis.model.Cottage;
 
 
@@ -43,6 +46,14 @@ public class ViewLoader {
     @Autowired
     private ConfigurationControllers.View cottageAddView;
 
+    @Qualifier("bookingEdit")
+    @Autowired
+    private ConfigurationControllers.View bookingEditView;
+
+    @Qualifier("bookingAdd")
+    @Autowired
+    private ConfigurationControllers.View bookingAddView;
+
     private Stage stage;
     private Scene scene;
 
@@ -64,11 +75,39 @@ public class ViewLoader {
         showPopUp(cottageAddView);
     }
 
+    public void showBookingAdd(Cottage cottage) {
+        Stage newStage = new Stage();
+        AddBookingController controller = (AddBookingController) bookingAddView.getController();
+        controller.setCottage(cottage);
+        newStage.setScene(new Scene(bookingAddView.getView()));
+        newStage.setResizable(true);
+        newStage.centerOnScreen();
+        newStage.setOnCloseRequest(event -> {
+            newStage.getScene().setRoot(new Pane());
+            newStage.close();
+        });
+        newStage.show();
+    }
+
     public void showCottageEdit(Cottage cottage) {
         Stage newStage = new Stage();
         EditCottageController controller = (EditCottageController) cottageEditView.getController();
         controller.setCottage(cottage);
         newStage.setScene(new Scene(cottageEditView.getView()));
+        newStage.setResizable(true);
+        newStage.centerOnScreen();
+        newStage.setOnCloseRequest(event -> {
+            newStage.getScene().setRoot(new Pane());
+            newStage.close();
+        });
+        newStage.show();
+    }
+
+    public void showBookingEdit(Booking booking) {
+        Stage newStage = new Stage();
+        EditBookingController controller = (EditBookingController) bookingEditView.getController();
+        controller.setBooking(booking);
+        newStage.setScene(new Scene(bookingEditView.getView()));
         newStage.setResizable(true);
         newStage.centerOnScreen();
         newStage.setOnCloseRequest(event -> {

@@ -49,4 +49,9 @@ public class CottageServiceImpl implements CottageService {
     public Cottage getOne(Long id) {
         return cottageRepository.getOne(id);
     }
+
+    @Override
+    public boolean exists(Long id) {
+        return cottageRepository.exists(id);
+    }
 }

@@ -5,9 +5,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.context.SecurityContextHolder;
+import ru.kpfu.itis.ConfigurationControllers;
 import ru.kpfu.itis.model.Booking;
-import ru.kpfu.itis.model.Cottage;
 import ru.kpfu.itis.model.User;
 import ru.kpfu.itis.service.BookingService;
 import ru.kpfu.itis.util.DateUtil;
@@ -22,7 +23,9 @@ import static ru.kpfu.itis.util.AlertShower.showAlert;
 public class EditBookingController {
     @Autowired
     BookingService bookingService;
-
+    @Qualifier("cottagesView")
+    @Autowired
+    private ConfigurationControllers.View cottagesView;
     @FXML
     TextField arriveDate;
     @FXML
@@ -36,8 +39,8 @@ public class EditBookingController {
 
     public void setBooking(Booking booking) {
         this.oldBooking = booking;
-        arriveDate.setText(booking.getArriveDate().toString());
-        departureDate.setText(booking.getDepartureDate().toString());
+        arriveDate.setText(DateUtil.format(booking.getArriveDate()));
+        departureDate.setText(DateUtil.format(booking.getDepartureDate()));
         phoneNumber.setText(booking.getPhoneNumber().toString());
     }
 
@@ -56,7 +59,16 @@ public class EditBookingController {
             booking.setArriveDate(arriveDateSql);
             booking.setDepartureDate(depDateSql);
             booking.setCottage(oldBooking.getCottage());
+            booking.setId(oldBooking.getId());
             bookingService.update(booking);
+            MainController mainController = (MainController) cottagesView.getController();
+            mainController.refresh();
+            mainController.showBookingDetails(booking);
+
+            Stage stage = (Stage) arriveDate.getScene().getWindow();
+            stage.getScene().setRoot(new Pane());
+            stage.close();
+
         }
     }
 

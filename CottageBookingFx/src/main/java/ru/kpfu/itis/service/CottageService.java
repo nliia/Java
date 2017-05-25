@@ -20,5 +20,5 @@ public interface CottageService {
 
     Cottage getOne(Long id);
 
-
+    boolean exists(Long id);
 }

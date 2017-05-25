@@ -1,7 +1,6 @@
 package ru.kpfu.itis.controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
@@ -84,25 +83,22 @@ public class AddCottageController {
             cottageService.add(cottage);
 
             MainController mainController = (MainController) cottagesView.getController();
-            mainController.showCottageDetails(cottage);
+            mainController.refresh();
             Stage stage = (Stage) cost.getScene().getWindow();
             stage.getScene().setRoot(new Pane());
             stage.close();
+            animalsPermission.setSelected(false);
+            playground.setSelected(false);
+            parking.setSelected(false);
+            pavilion.setSelected(false);
+            placeAmount.setText("");
+            cost.setText("");
+            cottageNumber.setText("");
         }
     }
 
     private boolean isValid() {
         String errorMessage;
-        try {
-            intPlaces = Integer.valueOf(placeAmount.getText());
-            intCottageNum = Long.valueOf(cottageNumber.getText());
-            intCost = Integer.valueOf(cost.getText());
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-            errorMessage = "You can use only numbers!";
-            showAlert(errorMessage);
-            return false;
-        }
         if (placeAmount.getText().length() == 0
                 || cottageNumber.getText().length() == 0
                 || cost.getText().length() == 0) {
@@ -110,8 +106,22 @@ public class AddCottageController {
             showAlert(errorMessage);
             return false;
         }
+        try {
+            intPlaces = Integer.valueOf(placeAmount.getText());
+            intCottageNum = Long.valueOf(cottageNumber.getText());
+            intCost = Integer.valueOf(cost.getText());
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            errorMessage = "You can use only numbers in fields!";
+            showAlert(errorMessage);
+            return false;
+        }
 
-        return true;
+        if (cottageService.exists(Long.valueOf(cottageNumber.getText()))){
+            showAlert("Cottage with this number already exists");
+            return false;
+        }
+            return true;
     }
 
 

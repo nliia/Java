@@ -2,6 +2,7 @@ package ru.kpfu.itis.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -39,7 +40,7 @@ public class RegController {
     @FXML
     TextField login;
     @FXML
-    TextField password;
+    PasswordField password;
 
     @FXML
     public void signUp() {

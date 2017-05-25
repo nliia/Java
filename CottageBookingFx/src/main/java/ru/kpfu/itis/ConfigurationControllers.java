@@ -38,6 +38,16 @@ public class ConfigurationControllers {
     public View getCottageAdd() throws IOException {
         return loadView("fxml/cottageAddDialog.fxml");
     }
+ @Bean(name = "bookingEdit")
+    public View getBookingEdit() throws IOException {
+        return loadView("fxml/bookingEditDialog.fxml");
+    }
+
+
+    @Bean(name = "bookingAdd")
+    public View getBookingAdd() throws IOException {
+        return loadView("fxml/bookingAddDialog.fxml");
+    }
 
     @Bean
     public AuthController getAuthController() throws IOException {
@@ -62,6 +72,16 @@ public class ConfigurationControllers {
     @Bean
     public AddCottageController getAddCottageController() throws IOException {
         return (AddCottageController) getCottageAdd().getController();
+    }
+
+ @Bean
+    public EditBookingController getEditBookingController() throws IOException {
+        return (EditBookingController) getBookingEdit().getController();
+    }
+
+    @Bean
+    public AddBookingController getAddBookingController() throws IOException {
+        return (AddBookingController) getBookingAdd().getController();
     }
 
 

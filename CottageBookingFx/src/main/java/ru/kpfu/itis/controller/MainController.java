@@ -1,13 +1,13 @@
 package ru.kpfu.itis.controller;
 
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.Callback;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import ru.kpfu.itis.ViewLoader;
@@ -67,6 +67,8 @@ public class MainController {
 
     @FXML
     private Tab bookingsTabPane;
+    @FXML
+    private Button addBookBtn;
 
     private ObservableList<Cottage> cottageObservableList;
     private ObservableList<Booking> bookingObservableList;
@@ -86,7 +88,7 @@ public class MainController {
         TableColumn<Cottage, Long> idColumn = new TableColumn<>("Number");
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
 
-        TableColumn<Cottage, Integer> nameColumn = new TableColumn<>("Cost");
+        TableColumn<Cottage, Integer> nameColumn = new TableColumn<>("Cost(per day)");
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("cost"));
 
 
@@ -130,7 +132,7 @@ public class MainController {
 
     @FXML
     private void deleteBooking() {
-        int selectedIndex = cottageTable.getSelectionModel().getSelectedIndex();
+        int selectedIndex = bookingTable.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0) {
             bookingService.delete(bookingTable.getSelectionModel().getSelectedItem().getId());
             bookingTable.getItems().remove(selectedIndex);
@@ -148,8 +150,12 @@ public class MainController {
     }
 
     @FXML
-    private void showEditBooking(){
-
+    private void showEditBooking() {
+        int selectedIndex = bookingTable.getSelectionModel().getSelectedIndex();
+        if (selectedIndex >= 0) {
+            Long id = bookingTable.getSelectionModel().getSelectedItem().getId();
+            viewLoader.showBookingEdit(bookingTable.getSelectionModel().getSelectedItem());
+        }
     }
 
     @FXML
@@ -158,8 +164,20 @@ public class MainController {
     }
 
     @FXML
-    private void showAddBooking(){
+    private void showAddBooking() {
+        int selectedIndex = cottageTable.getSelectionModel().getSelectedIndex();
+        if (selectedIndex >= 0) {
+            viewLoader.showBookingAdd(cottageTable.getSelectionModel().getSelectedItem());
+        }
+    }
 
+    @FXML
+    private void logout() {
+        SecurityContextHolder.clearContext();
+        Stage stage = (Stage) bookingTable.getScene().getWindow();
+        stage.getScene().setRoot(new Pane());
+        stage.close();
+        viewLoader.showAuth();
     }
 
     public void setVisibleBtns() {
@@ -169,6 +187,8 @@ public class MainController {
             editCotBtn.setVisible(false);
             deleteCotBtn.setVisible(false);
             bookingsTabPane.setDisable(true);
+        } else {
+            addBookBtn.setVisible(false);
         }
     }
 

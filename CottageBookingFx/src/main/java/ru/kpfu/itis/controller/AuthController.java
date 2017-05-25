@@ -2,6 +2,7 @@ package ru.kpfu.itis.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class AuthController {
     @FXML
     TextField login;
     @FXML
-    TextField password;
+    PasswordField password;
 
     @FXML
     public void login() {
