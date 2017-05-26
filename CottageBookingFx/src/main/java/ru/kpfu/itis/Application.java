@@ -24,6 +24,8 @@ public class Application extends AbstractJavaFxApplicationSupport {
     public void start(Stage stage) throws Exception {
         stage.setTitle(windowTitle);
         stage.setScene(new Scene(view.getView()));
+
+        stage.getScene().getStylesheets().add("themes/style.css");
         stage.setResizable(true);
         stage.centerOnScreen();
         stage.show();

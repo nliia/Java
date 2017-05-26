@@ -23,16 +23,19 @@
    <children>
       <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <children>
-            <TextField fx:id="login" layoutX="208.0" layoutY="135.0" prefHeight="37.0" prefWidth="184.0" promptText="enter login" />
-            <PasswordField fx:id="password" layoutX="208.0" layoutY="181.0" prefHeight="37.0" prefWidth="184.0" promptText="enter password" />
-            <Text layoutX="216.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign in">
+            <TextField fx:id="login" layoutX="188.0" layoutY="135.0" prefHeight="37.0" prefWidth="216.0" promptText="enter login" />
+            <PasswordField fx:id="password" layoutX="188.0" layoutY="182.0" prefHeight="37.0" prefWidth="216.0" promptText="enter password" />
+            <Text fill="WHITE" layoutX="188.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign in">
                <font>
-                  <Font size="18.0" />
+                  <Font size="29.0" />
                </font>
             </Text>
-            <Button layoutX="329.0" layoutY="261.0" mnemonicParsing="false" onAction="#login" prefWidth="60.0" text="Sign in" />
-            <Label fx:id="header" layoutX="48.0" layoutY="24.0" prefHeight="54.0" prefWidth="218.0" text=" " />
-            <Button layoutX="208.0" layoutY="261.0" mnemonicParsing="false" onAction="#showSignUp" text="Go to sign up" />
+            <Button layoutX="344.0" layoutY="261.0" mnemonicParsing="false" onAction="#login" prefWidth="60.0" text="Sign in" />
+            <Label fx:id="header" layoutX="122.0" layoutY="25.0" prefHeight="54.0" prefWidth="364.0" text=" ">
+               <font>
+                  <Font size="17.0" />
+               </font></Label>
+            <Button layoutX="188.0" layoutY="261.0" mnemonicParsing="false" onAction="#showSignUp" text="Go to sign up" />
          </children></AnchorPane>
    </children>
 </GridPane>

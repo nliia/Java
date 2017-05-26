@@ -65,7 +65,4 @@ public class RegController {
     public void showAuth() {
         viewLoader.showAuth();
     }
-
-    public void setVisibleBtns() {
-    }
 }

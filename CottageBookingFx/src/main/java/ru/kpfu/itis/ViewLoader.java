@@ -94,6 +94,7 @@ public class ViewLoader {
         EditCottageController controller = (EditCottageController) cottageEditView.getController();
         controller.setCottage(cottage);
         newStage.setScene(new Scene(cottageEditView.getView()));
+        newStage.getScene().getStylesheets().add("themes/style.css");
         newStage.setResizable(true);
         newStage.centerOnScreen();
         newStage.setOnCloseRequest(event -> {
@@ -108,6 +109,7 @@ public class ViewLoader {
         EditBookingController controller = (EditBookingController) bookingEditView.getController();
         controller.setBooking(booking);
         newStage.setScene(new Scene(bookingEditView.getView()));
+        newStage.getScene().getStylesheets().add("themes/style.css");
         newStage.setResizable(true);
         newStage.centerOnScreen();
         newStage.setOnCloseRequest(event -> {
@@ -136,6 +138,7 @@ public class ViewLoader {
     private void showPopUp(ConfigurationControllers.View view) {
         Stage stage = new Stage();
         stage.setScene(new Scene(view.getView()));
+        stage.getScene().getStylesheets().add("themes/style.css");
         stage.setResizable(true);
         stage.centerOnScreen();
         stage.setOnCloseRequest(event -> {

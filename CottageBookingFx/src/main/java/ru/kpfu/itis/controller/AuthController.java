@@ -40,7 +40,6 @@ public class AuthController {
             SecurityContextHolder.getContext().setAuthentication(authToken);
         } catch (AuthenticationException e) {
             header.setText("User not found");
-            header.setTextFill(Color.DARKRED);
             return;
         }
 

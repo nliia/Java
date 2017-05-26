@@ -5,34 +5,23 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.kpfu.itis.controller.RegController">
-    <columnConstraints>
-        <ColumnConstraints />
-        <ColumnConstraints />
-    </columnConstraints>
-    <rowConstraints>
-        <RowConstraints />
-        <RowConstraints />
-    </rowConstraints>
-    <children>
-        <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="254.0" prefWidth="283.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-            <children>
-                <TextField fx:id="login" layoutX="50.0" layoutY="71.0" prefHeight="37.0" prefWidth="184.0" promptText="enter login" />
-                <PasswordField fx:id="password" layoutX="50.0" layoutY="117.0" prefHeight="37.0" prefWidth="184.0" promptText="enter password" />
-                <Text layoutX="43.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign up">
-                    <font>
-                        <Font size="18.0" />
-                    </font>
-                </Text>
-                <Button layoutX="174.0" layoutY="200.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#signUp" prefWidth="60.0" text="Sign up" />
-                <Label fx:id="header" layoutX="112.0" layoutY="21.0" prefHeight="37.0" prefWidth="161.0" text=" " />
-            <Button layoutX="50.0" layoutY="200.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#showAuth" prefWidth="60.0" text="Back" />
-            </children></AnchorPane>
-    </children>
-</GridPane>
+<AnchorPane fx:controller="ru.kpfu.itis.controller.RegController" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TextField fx:id="login" layoutX="192.0" layoutY="141.0" prefHeight="37.0" prefWidth="232.0" promptText="enter login" />
+      <PasswordField fx:id="password" layoutX="192.0" layoutY="187.0" prefHeight="37.0" prefWidth="232.0" promptText="enter password" />
+      <Text fill="WHITE" layoutX="192.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign up" wrappingWidth="141.4072265625">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Text>
+      <Button layoutX="364.0" layoutY="261.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#signUp" prefWidth="60.0" text="Sign up" />
+      <Label fx:id="header" layoutX="161.0" layoutY="14.0" prefHeight="37.0" prefWidth="306.0">
+         <font>
+            <Font size="17.0" />
+         </font></Label>
+      <Button layoutX="192.0" layoutY="261.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#showAuth" prefWidth="60.0" text="Back" />
+   </children>
+</AnchorPane>

@@ -168,6 +168,8 @@ public class MainController {
         int selectedIndex = cottageTable.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0) {
             viewLoader.showBookingAdd(cottageTable.getSelectionModel().getSelectedItem());
+        }else{
+            showAlert("Please, choose a cottage");
         }
     }
 
@@ -187,7 +189,8 @@ public class MainController {
             editCotBtn.setVisible(false);
             deleteCotBtn.setVisible(false);
             bookingsTabPane.setDisable(true);
-        } else {
+        }
+        if(user.getRole().equals("ADMIN")){
             addBookBtn.setVisible(false);
         }
     }
